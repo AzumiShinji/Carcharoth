@@ -79,6 +79,7 @@
                                                     "ОКПО: " + Eval("okpoCode")+"%048%"+
                                                     "ПГМУ: " + Eval("pgmu")+"%048%"+
                                                     "Наименование: " + Eval("fullName").ToString().Replace("\"","%049%")+"%048%"+
+                                                    "Сокр. наименование: " + Eval("shortName").ToString().Replace("\"","%049%")+"%048%"+
                                                     "ФИО руководителя: " + Eval("fio")+"%048%"+
                                                     "Номер реестровой записи: " + Eval("recordNum")+"%048%"+
                                                     "Город: " + Eval("cityName")+"%048%"+
@@ -112,6 +113,7 @@
                                                     <b>ОКПО: </b><%# Eval("okpoCode") %></br>
                                                     <b>ПГМУ: </b><%# Eval("pgmu") %></br>
                                                     <b>Наименование: </b><%# Eval("fullName").ToString().Replace('\"','\'') %></br>
+                                                    <b>Сокр. наименование: </b><%# Eval("shortName").ToString().Replace('\"','\'') %></br>
                                                     <b>ФИО руководителя: </b><%# Eval("fio") %></br>
                                                     <b>Номер реестровой записи: </b><%# Eval("recordNum") %></br>
                                                     <b>Город: </b><%# Eval("cityName") %></br>

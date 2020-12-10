@@ -113,10 +113,10 @@
                         <span>База знаний</span>
                         <img src="/images/handbook.png" runat="server" class="d-inline-block align-top navigation-btn  button-smooth" width="35" alt="" />
                     </a>
-                    <a runat="server" href="stat.aspx" style="text-decoration:none" class="CustomToolTip" ToolTip="Статистика">
+<%--                    <a runat="server" href="stat.aspx" style="text-decoration:none;" class="CustomToolTip" ToolTip="Статистика">
                         <span>Статистика</span>
                          <img src="/images/stat.png" runat="server" class="d-inline-block align-top navigation-btn  button-smooth" width="35" alt="" />
-                    </a>
+                    </a>--%>
                     <a runat="server" href="org.aspx" style="text-decoration:none" class="CustomToolTip" ToolTip="Поиск по организациям">
                         <span>Поиск по организациям</span>
                          <img src="/images/org.png" runat="server" class="d-inline-block align-top navigation-btn  button-smooth" width="35" alt="" />
@@ -136,7 +136,7 @@
                         <a runat="server" href="games.aspx" id="gamepanel" style="text-decoration:none;visibility:hidden" class="CustomToolTip" ToolTip="Игры">
                             <span>Игры</span>
                              <img src="/images/games.png" runat="server" class="d-inline-block align-top navigation-btn button-smooth" width="35" alt="" />
-                        </a>
+                    </a>
                 </div>
                 <div style="font-size:10px;margin-left:-40%;display:inline-flex">
                     <div style="display:inline-block;margin-top:5px;">

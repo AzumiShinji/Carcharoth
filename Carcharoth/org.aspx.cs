@@ -61,20 +61,20 @@ namespace Carcharoth
                 {
                     if (name.Count() == 1)
                         name[i] =
-                            "WHERE (fullName LIKE (N'%" + name[i] + "%'))";
+                            "WHERE (fullName LIKE (N'%" + name[i] + "%')) OR (shortName LIKE (N'%" + name[i] + "%'))";
                     else
                     {
                         if (i == 0)
                             name[i] =
-                                "WHERE (fullName LIKE (N'%" + name[i] + "%')) AND ";
+                                "WHERE (fullName LIKE (N'%" + name[i] + "%') OR (shortName LIKE (N'%" + name[i] + "%'))) AND ";
                         else
                         {
                             if (i == name.Count() - 1)
                                 name[i] =
-                                    "(fullName LIKE (N'%" + name[i] + "%'))";
+                                    "(fullName LIKE (N'%" + name[i] + "%') OR (shortName LIKE (N'%" + name[i] + "%')))";
                             else
                                 name[i] =
-                                    "(fullName LIKE (N'%" + name[i] + "%')) AND ";
+                                    "(fullName LIKE (N'%" + name[i] + "%') OR (shortName LIKE (N'%" + name[i] + "%'))) AND ";
                         }
                     }
                 }
