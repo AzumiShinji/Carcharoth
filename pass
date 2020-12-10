@@ -1,0 +1,13 @@
+    <add name="ToCatalogDB" connectionString="Data Source=WebService\Carcharoth;Initial Catalog=SUE;User ID=sa;Password=iloveyoujesus;Connect Timeout=30;"
+      providerName="System.Data.SqlClient" />
+    <add name="ToOrgsDB" connectionString="Data Source=WebService\Carcharoth;Initial Catalog=runbp;User ID=sa;Password=iloveyoujesus;Connect Timeout=30;"
+      providerName="System.Data.SqlClient" />
+
+    <add name="ToCatalogDB" connectionString="Data Source=(LocalDB)\db11;Initial Catalog=SUE;Integrated Security=True;Connect Timeout=30;"
+      providerName="System.Data.SqlClient" />
+    <add name="ToOrgsDB" connectionString="Data Source=(LocalDB)\db11;Initial Catalog=runbp;Integrated Security=True;Connect Timeout=30;"
+      providerName="System.Data.SqlClient" />
+
+    <staticContent>
+        <mimeMap fileExtension=".mp4" mimeType="video/mp4" />                   
+    </staticContent>

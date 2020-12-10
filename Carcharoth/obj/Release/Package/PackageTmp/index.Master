@@ -1,0 +1,303 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="index.master.cs" Inherits="Carcharoth.index" %>
+
+<!DOCTYPE html>
+
+<html lang="ru">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+        <link rel="stylesheet" runat="server" media="screen" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" runat="server" media="screen" href="css/creative.css" />
+        <link rel="stylesheet" runat="server" media="screen" href="css/slidetext.css" />
+        <link rel="stylesheet" runat="server" media="screen" href="css/loader.css" />
+        <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript">
+            
+            function ShowPopup() {
+                $('#loginmodal').modal('show')
+            }
+            function ShowPopupEA() {
+                $('#EAModal').modal('show')
+                document.getElementById("DeletePost").hidden = true;
+
+                document.getElementById("id_edit").value = 0;
+                document.getElementById("it_edit").value = '<%= Session["NameIT"]%>';
+                document.getElementById("isimportant_edit").checked = false;
+                document.getElementById("ismainpage_edit").checked = false;
+                document.getElementById("isfirstline_edit").checked = false;
+                document.getElementById("head_edit").value = "";
+                //document.getElementById("text_edit").value = product_text;
+                CKEDITOR.instances['text_edit'].setData("");
+                document.getElementById("keywords_edit").value = "";
+                document.getElementById("sd_edit").value = "";
+            }
+            $(document).on("click", ".open_modal", function () {
+                document.getElementById("DeletePost").hidden = false;
+
+                var product_id = $(this).data('postid');
+                var product_it = $(this).data('it');
+                var product_isimportant = $(this).data('isimportant');
+                var product_ismainpage = $(this).data('ismainpage');
+                var product_isfirstline = $(this).data('isfirstline');
+                var product_head = $(this).data('head');
+                var product_text = $(this).data('text');
+                var product_keywords = $(this).data('keywords');
+                var product_sd = $(this).data('sd');
+
+                document.getElementById("id_edit").value = product_id;
+                document.getElementById("it_edit").value = product_it;
+                document.getElementById("isimportant_edit").checked = product_isimportant =="1" ? true : false;
+                document.getElementById("ismainpage_edit").checked = product_ismainpage == "1" ? true : false;
+                if (product_it == "Общая информация" || product_it=="Другие проекты") 
+                    document.getElementById("isfirstline_edit").disabled = true;
+                else document.getElementById("isfirstline_edit").disabled = false;
+                document.getElementById("isfirstline_edit").checked = product_isfirstline == "1" ? true : false;
+                document.getElementById("head_edit").value = product_head;
+                //document.getElementById("text_edit").value = product_text;
+                CKEDITOR.instances['text_edit'].setData(product_text);
+                document.getElementById("keywords_edit").value = product_keywords;
+                document.getElementById("sd_edit").value = product_sd;
+            });
+            function fallbackCopyTextToClipboard(text) {
+                var textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.value = textArea.value.split('%048%').join('\n');
+                textArea.value = textArea.value.split('%049%').join("'");
+                document.body.appendChild(textArea);
+                //textArea.focus();
+                textArea.select();
+
+                try {
+                    var successful = document.execCommand('copy');
+                    var msg = successful ? 'successful' : 'unsuccessful';
+                    console.log('Fallback: Copying text command was ' + msg);
+                } catch (err) {
+                    console.error('Fallback: Oops, unable to copy', err);
+                }
+                document.body.removeChild(textArea);
+            }
+        </script>
+        <script src="Data/ckeditor.js"></script>
+        <script>
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 50 ) {
+                    $('.scrolltop:hidden').stop(true, true).fadeIn();
+                } else {
+                    $('.scrolltop').stop(true, true).fadeOut();
+                }
+            });
+            $(function () { $(".scroll").click(function () { $("html,body").animate({ scrollTop: $("html").offset().top }, "1000"); return false }) })
+            window.onload = function () {
+                document.addEventListener('keydown', function (event) {
+                    if (event.code == 'KeyZ' && (event.ctrlKey || event.metaKey)) {
+                        var g = document.getElementById('gamepanel');
+                        g.style.visibility = "visible";
+                    }
+                });
+            };
+        </script>
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <nav class="navbar navbar-light fixed-top" style="background-color: rgba(40, 40, 40, 0.98);color:white;">
+                <div class="navbar-brand" style="color:white;margin-left:13px">
+                    <a runat="server" href="catalog.aspx" style="text-decoration:none" class="CustomToolTip" ToolTip="База знаний">
+                        <span>База знаний</span>
+                        <img src="/images/handbook.png" runat="server" class="d-inline-block align-top navigation-btn  button-smooth" width="35" alt="" />
+                    </a>
+                    <a runat="server" href="stat.aspx" style="text-decoration:none" class="CustomToolTip" ToolTip="Статистика">
+                        <span>Статистика</span>
+                         <img src="/images/stat.png" runat="server" class="d-inline-block align-top navigation-btn  button-smooth" width="35" alt="" />
+                    </a>
+                    <a runat="server" href="org.aspx" style="text-decoration:none" class="CustomToolTip" ToolTip="Поиск по организациям">
+                        <span>Поиск по организациям</span>
+                         <img src="/images/org.png" runat="server" class="d-inline-block align-top navigation-btn  button-smooth" width="35" alt="" />
+                    </a>
+                    <a runat="server" href="employees.aspx" style="text-decoration:none" class="CustomToolTip" ToolTip="Сотрудники">
+                        <span>Сотрудники</span>
+                         <img src="/images/employees.png" runat="server" class="d-inline-block align-top navigation-btn button-smooth" width="35" alt="" />
+                    </a>
+                    <a runat="server" href="ctr.aspx" style="text-decoration:none" class="CustomToolTip" ToolTip="Каталог клиентских IT-сервисов / Телефонный справочник ЦА,ТОФК">
+                        <span>Каталог клиентских IT-сервисов / Телефонный справочник ЦА,ТОФК</span>
+                         <img src="/images/ctr.png" runat="server" class="d-inline-block align-top navigation-btn button-smooth" width="35" alt="" />
+                    </a>
+                    <a runat="server" href="debtors.aspx" style="text-decoration:none" class="CustomToolTip" ToolTip="Взносы">
+                        <span>Взносы</span>
+                         <img src="/images/debtors.png" runat="server" class="d-inline-block align-top navigation-btn button-smooth" width="35" alt="" />
+                    </a>
+                        <a runat="server" href="games.aspx" id="gamepanel" style="text-decoration:none;visibility:hidden" class="CustomToolTip" ToolTip="Игры">
+                            <span>Игры</span>
+                             <img src="/images/games.png" runat="server" class="d-inline-block align-top navigation-btn button-smooth" width="35" alt="" />
+                        </a>
+                </div>
+                <div style="font-size:10px;margin-left:-40%;display:inline-flex">
+                    <div style="display:inline-block;margin-top:5px;">
+                        <img runat="server" width="20" src="/images/alert.png"/>
+                    </div>
+                    <div style="display:inline-block">   
+                        <asp:Panel runat="server" ID="bdPanel" ClientIDMode="AutoID" hidden="true" style="position:absolute;top:0">
+                                <img src="/images/birthday-min.gif" height="15"> Сегодня празднуют день рождение: <%= GetBirthDayToAlerts() %> <img src="/images/birthday-min.gif" height="15">
+                        </asp:Panel>
+                        <div id="slider">
+                            <div class="container">
+                                <asp:ListView ID="DataTree" runat="server" DataSourceID="AlertsSQLSource" RepeatColumns="1"
+                                CellSpacing="1">  
+                                    <ItemTemplate>  
+                                            <div class="slide">
+                                                <p class="cut-text">
+                                                <%# Eval("AlertsText") %>
+                                                </p>
+                                            </div>
+                                    </ItemTemplate>  
+                                </asp:ListView>  
+                            </div>
+                        </div>
+                        <input style="display: none;" type="password" name="pwdplaceholder"/>
+                    <asp:SqlDataSource ID="AlertsSQLSource" runat="server" ConnectionString="<%$ ConnectionStrings:ToCatalogDB %>" SelectCommand="Select top 5 * From Alerts order by Id desc"></asp:SqlDataSource>  
+                    </div>
+                </div>
+                    <asp:Panel runat="server" ID="ПанельСписокДолжников" CssClass="panel-debtors-notification panel-hidden">
+                         <a href="#" onclick="document.getElementById('ПанельСписокДолжников').hidden=true;" 
+                             class="btn btn-danger">Х</a>
+                        <h4>Список должников:</h4>
+                        <a href="debtors.aspx">Подробнее...</a><br />
+                        <%= ПолучитьСписокДолжников() %>
+                    </asp:Panel>
+                <div class="navbar-text">
+                    <asp:ImageButton runat="server" ID="btnLogin" type="button" ImageUrl="/images/user.png" data-toggle="modal" AlternateText="Войти" data-target="#loginmodal" CssClass="btn btn-dark btn-small btn-login button-smooth" OnClientClick="return false" />
+                    <asp:Panel runat="server" ID="PanelDropDown">
+                        <div class="dropdown">
+                          <button class="btn btn-secondary btn-sm btn-dark dropdown-toggle" style="font-size:12px;padding:0 5px 0 5px;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img runat="server" src="/images/user-small.png" style="padding-right:4px"/><asp:Label ID="UserLabel" CssClass="infoLabel" runat="server"></asp:Label>
+                          </button>
+                          <div class="dropdown-menu dropdown-menu-right" style="padding:1px;font-size:12px;background-color:#343a40" aria-labelledby="dropdownMenuButton">
+                              <asp:Label runat="server" ID="FIOLabel" CssClass="dropdown-item dropDownItem-label"></asp:Label>
+                              <asp:Label runat="server" ID="ProjectLabel" CssClass="dropdown-item dropDownItem-label"></asp:Label>
+                              <asp:LinkButton runat="server" ID="linkbtnEditUsers" Enabled="false" Visible="false" CssClass="dropdown-item" OnClick="linkbtnEditUsers_Click">
+                                  Управление пользователями
+                              </asp:LinkButton>
+                              <asp:LinkButton runat="server" ID="linkbtnEditAlerts" Enabled="false" Visible="false" CssClass="dropdown-item" OnClick="linkbtnEditAlerts_Click">
+                                  Управление оповещениями
+                              </asp:LinkButton>
+                              <asp:LinkButton runat="server" ID="linkbtnServerInfo" Enabled="false" Visible="false" CssClass="dropdown-item" OnClick="linkbtnServerInfo_Click">
+                                  О сервере
+                              </asp:LinkButton>
+                              <asp:LinkButton runat="server" ID="linkbtnChangePassword" CssClass="dropdown-item" OnClick="btnChangePassword_Click">Сменить пароль</asp:LinkButton>
+                              <asp:LinkButton ID="linkbtnLogout" runat="server" CssClass="dropdown-item" OnClick="btnLogout_Click">Выход</asp:LinkButton>
+                          </div>
+                        </div>
+                    </asp:Panel>
+                </div>
+            </nav>
+        </div>
+        <div>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <footer>
+                <!-- Modal Edit/Add -->
+                <div class="modal fade" id="EAModal" style="color:black;z-index:5000" role="dialog" aria-labelledby="EAModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-xl" role="document" style="z-index:5000">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="EAModalLabel">Изменить/Добавить</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body" style="text-align:left">
+                            <div>
+                                    <asp:HiddenField id="id_edit" runat="server" Value="0" />
+                                    <b style="font-size:10px">ИТ-Сервис:</b><input ID="it_edit" style="width:100%;border:none;" runat="server" readonly="readonly" /><br />
+                                <div style="width:200px">
+                                        <b style="font-size:10px">Закрепить статью:</b>
+                                    <asp:CheckBox runat="server" style="float:right" ID="isimportant_edit" />
+                                    <br />
+                                        <b style="font-size:10px">Поместить на главную страницу:</b>
+                                    <asp:CheckBox runat="server" style="float:right" ID="ismainpage_edit" />
+                                    <br />
+                                        <b style="font-size:10px">Решение для 1-ой линии:</b>
+                                    <asp:CheckBox runat="server" style="float:right" ID="isfirstline_edit" />
+                                </div>
+                                    <b style="font-size:10px">Заголовок:</b><br /> <asp:TextBox ID="head_edit" runat="server" Width="100%"></asp:TextBox><br />
+                                    <b style="font-size:10px">Текст:</b> <br /><asp:TextBox ID="text_edit" name="editor1" runat="server" TextMode="MultiLine" Width="100%" Height="200px"></asp:TextBox><br />
+                                <script>
+                                    CKEDITOR.replace('text_edit');
+                                </script>
+                                <div>
+                                   Выбрать несколько файлов (Максимальный размер: 20мб):
+                                   <asp:FileUpload id="FileUpload" AllowMultiple="true" CssClass="btn btn-dark btn-sm"                
+                                       runat="server">
+                                   </asp:FileUpload>    
+                                </div>
+                                    <b style="font-size:10px">Ключевые слова:</b><br /> <asp:TextBox ID="keywords_edit" runat="server" Width="100%"></asp:TextBox><br />
+                                    <b style="font-size:10px">Пример SD: </b><br /><asp:TextBox ID="sd_edit" runat="server" Width="100%"></asp:TextBox><br />
+                              
+                            </div>
+                          </div>
+                          <div class="modal-footer" style="display:block">
+                            <div>
+                                 <asp:LinkButton ID="DeletePost" style="margin-left:0;" CssClass="btn btn-sm btn-danger" runat="server" OnClick="DeletePost_Click">Удалить</asp:LinkButton>   
+                                <asp:LinkButton CssClass="btn btn-sm btn-success" style="float:right" ID="AddEditPosts" runat="server" Text="Подтвердить" UseSubmitBehavior="true" CausesValidation="True" OnClick="AddEditPosts_Click" />
+                                <button type="button" class="btn btn-sm btn-secondary" style="float:right;margin-right:5px" data-dismiss="modal">Закрыть</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                <!-- Modal Reg -->
+                 <asp:Panel runat="server" ID="modalreg" DefaultButton="Login" style="z-index:5000">
+                    <div class="modal fade" id="loginmodal" tabindex="-1" style="color:black;z-index:5000" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header" style="padding:0.5rem">
+                            <h6 class="modal-title" id="exampleModalLabel" style="font-size:0.9rem"><img runat="server" src="/images/user-black.png" style="padding-right:5px" />
+                                <asp:Label ID="ModalHeadLabel" runat="server" Text="Вход" />
+                            </h6>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="margin:0;padding:0;">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body" style="text-align:center;padding:0.5rem">
+                            <div>
+                                <img id="userloginimage" runat="server" src="/images/user-login.png" />
+                                <div style="display:inline-block">
+                                    <asp:TextBox CssClass="form-control" ID="LoginTB" runat="server" ToolTip="Логин (example@fsfk.local)" placeholder="example@fsfk.local"></asp:TextBox>
+                                    <asp:TextBox Enabled="false" Visible="false" CssClass="form-control" ID="Password1" runat="server" TextMode="Password" ToolTip="Новый пароль" Placeholder="Новый пароль"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div style="padding-top:5px">
+                                <img id="userpasswordimage" runat="server" src="/images/user-password.png" />
+                                <div style="display:inline-block">
+                                    <asp:TextBox CssClass="form-control" ID="PasswordTB" runat="server" AutoCompleteType="Enabled" TextMode="Password" ToolTip="Пароль" placeholder="Пароль"></asp:TextBox>
+                                    <asp:TextBox Enabled="false" Visible="false" CssClass="form-control" ID="Password2" runat="server" TextMode="Password" ToolTip="Повтор ввода нового пароля" Placeholder="Повторите пароль"></asp:TextBox>
+                                </div>
+                            </div>
+                            <asp:Label runat="server" id="StatusLogin" Text="" CssClass="StatusLogin"/>
+                          </div>
+                          <div class="modal-footer" style="text-align:center;padding:0.5rem">
+                              <div style="text-align:center;width:100%">
+                                <asp:Button CssClass="btn btn-sm btn-outline-dark" style="padding:2px;font-size:0.9rem" type="submit" ID="Login" runat="server" Text="Войти" Width="106px" UseSubmitBehavior="true" CausesValidation="True" OnClick="Login_Click" />
+                                <asp:Button Enabled="false" Visible="false"  CssClass="btn btn-sm btn-outline-dark" style="padding:2px;font-size:0.9rem" ID="btnChangePasswordinDB" runat="server" OnClick="btnChangePasswordinDB_Click" Text="Подтвердить" Width="150px" UseSubmitBehavior="true" />
+                                <%--<asp:Button type="button" runat="server" Text="Закрыть" class="btn btn-sm btn-secondary" data-dismiss="modal" />--%>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </asp:Panel>
+            <div class='scrolltop'>
+                <div class='scroll icon'>&uarr;</div>
+            </div>
+            </footer>
+    </form>
+</body>
+</html>

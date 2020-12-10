@@ -1,0 +1,837 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    font-family:Tahoma;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    /*background-color: hsl(0, 0%, 7%);*/
+    background-image: url("/images/background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding-top: 28px;
+}
+
+
+.CustomToolTip{
+    padding-right:5px;
+}
+
+.CustomToolTip span {
+    background-color: #343a40;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-size: 12px;
+    display: none;
+    padding: 3px;
+    margin-top: 35px;
+    margin-left: -30px;
+    width: auto;
+}
+
+.CustomToolTip:hover span {
+    z-index:999;
+    display: inline;
+    position: absolute;
+    -webkit-animation: fadeIn 0.3s;
+    animation: fadeIn 0.3s;
+}
+
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;}to {opacity: 1;}}
+@keyframes fadeIn {from {opacity: 0;}to {opacity: 1;}}
+@-webkit-keyframes fadeOut {from {opacity: 1;}to {opacity: 0;}}
+@keyframes fadeOut {from {opacity: 1;}to {opacity: 0;}}
+
+.btn-small{
+    background-color:transparent;
+    padding:0 5px 0 5px;
+    margin:0 0 0 5px;
+    border-color:white;
+    font-size:10px;
+    display:inline-block;
+    float:right;
+}
+
+.infoLabel{
+    padding:0;
+    font-size:10px;
+}
+
+.navbar-text{
+    padding:0;
+}
+
+.dropDownItem-label {
+    font-size: 10px;
+    background-color: #343a40;
+    
+    text-align: right;
+    color: white;
+    padding: 0 5px 0 5px;
+}
+.dropDownItem-label:hover{
+    background-color:transparent;
+    color:white;
+}
+.dropdown
+.dropdown .nav-link {color:#fff; }
+.dropdown .dropdown-menu a{color: #fff; }
+.dropdown .btn {color:#fff;}
+.dropdown .btn:hover {color:#fff;}
+.dropdown .btn:active {color:#fff;}
+.dropdown .btn:focus {color:#fff;}
+.dropdown-menu .dropdown-item
+.container .dropdown .dropdown-menu a:hover
+{
+  color: #fff;
+  background-color: #b91773;
+}
+
+.GridListUsers tr th {
+    padding: 5px;
+}
+
+.GridListEmployees{
+    font-size:12px;
+}
+
+.GridListEmployees tr th {
+    padding: 5px;
+}
+.GridListEmployees tr td {
+    padding: 5px;
+    border: 1px solid rgba(72, 70, 70, 0.41);
+}
+
+.GridListUsers input[type=text] {
+    color: white;
+}
+
+.GridRowListUsers{
+    text-align:center;
+}
+
+.GridNewUser td {
+    padding: 10px;
+}
+
+.GridNewUser {
+    text-align: center;
+    margin-top: 0px
+}
+
+.navigation-btn {
+    text-decoration: none;
+    /*border: 1px solid white;*/
+    /*background-color: rgba(255, 255, 255, 0.66);*/
+    font-size: 15px;
+    padding: 2px;
+    width: 30px;
+    height: 30px;
+    /*border-radius: 5px;*/
+    /*-webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;*/
+}
+    /*.navigation-btn:hover {
+
+        border-radius: 50px;
+        padding:3px;
+        text-decoration: none;
+        background-color: rgba(255, 255, 255, 0.15);
+        -webkit-transition: all 0.2s ease-in-out;
+        -moz-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+        
+    }*/
+
+.colExUsers {
+    padding:3px;
+    border: 1px solid rgba(72, 70, 70, 0.41);
+}
+.colExUsers-union {
+    background-color: rgba(152, 229, 227, 0.1);
+    border: 1px solid rgba(72, 70, 70, 0.41);
+}
+.colExUsers-wrong {
+    background-color: rgba(232, 94, 94, 0.1);
+    border: 1px solid rgba(72, 70, 70, 0.41);
+}
+.colExUsers-result {
+    background-color: rgba(152, 229, 161, 0.10);
+    border: 1px solid rgba(72, 70, 70, 0.41);
+}
+.colExUsers-head-rows {
+    background-color: rgba(55, 66, 117, 0.20);
+    border: 1px solid rgba(72, 70, 70, 0.41);
+}
+
+.copy-btn {
+    text-decoration: none;
+    background-color: transparent;
+    font-size: 15px;
+    padding: 2px;
+    width: 20px;
+    height: 20px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.copy-btn:hover {
+    width: 23px;
+    height: 23px;
+    text-decoration: none;
+    background-color: rgba(255, 255, 255, 0.06);
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.copy-btn:active {
+    border: 1px solid white;
+}
+    .copy-btn:visited {
+        border: 1px solid white;
+    }
+    .copy-btn:focus {
+        border: 1px solid white;
+    }
+
+.table-org {
+    width: 400px;
+    margin: 0 0 20px 20px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    font-size: 12px;
+    -webkit-transition: all 1.3s ease-in-out;
+    -moz-transition: all 1.3s ease-in-out;
+    -o-transition: all 1.3s ease-in-out;
+    transition: all 1.3s ease-in-out;
+}
+    .table-org:hover {
+        box-shadow: 0 0 7px rgba(255,255,255,0.5);
+        background-color:rgba(0, 29, 255, 0.05);
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+    }
+/*.table-background {
+    background: url("/images/table-background.jpg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}*/
+
+.sticky {
+    position: sticky;
+    top: 56px;
+    min-height: 2em;
+    background-color: #212226;
+}
+
+.table{
+    color:white;
+}
+.search-control-main {
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    left: 50%;
+    top:2px;
+    z-index:1500;
+}
+
+.cut-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 30vw;
+    white-space: nowrap;
+}
+
+.catalog-cut-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: inherit;
+    max-height: 300px;
+    max-width:70vw;
+    /*background: linear-gradient(180deg, black 20%, black 80%, #ffffff 95%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;*/
+}
+
+.search-control {
+    width: 30vw;
+    max-width: 40vw;
+    height: 25px;
+    text-align: center;
+    position: relative;
+    /*left: -50%;*/
+    top: 0;
+}
+    .search-control input {
+        font-size: 10px;
+        background-color: transparent;
+        color: white;
+        border: none;
+        border-radius: 0;
+        border: 1px solid gray;
+        transition: all 0.8s ease-in-out;
+        -webkit-transition: all 0.8s ease-in-out;
+        -moz-transition: all 0.8s ease-in-out;
+        -o-transition: all 0.8s ease-in-out;
+    }
+
+        .search-control input[type=search]:focus {
+            background-color: white;
+            color: black;
+        }
+        .search-control input[type=search]:hover {
+            background-color: white;
+            color: black;
+            transition: all 0.1s ease-in-out;
+            -webkit-transition: all 0.1s ease-in-out;
+            -moz-transition: all 0.1s ease-in-out;
+            -o-transition: all 0.1s ease-in-out;
+        }
+    .search-control a {
+        border: 1px solid gray;
+        border-left:0;
+        width: 50px;
+        text-align: center;
+        vertical-align: middle;
+        background-color: #383838;
+        font-size: 10px;
+        height: 29px !important;
+    }
+        .search-control a {
+            background-image: url("/images/search.png");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 20px;
+        }
+        .search-control a:hover {
+            background-image: url("/images/search-light.png")!important;
+            
+        }
+            .search-control a:active {
+                background-color: #565555;
+            }
+
+.custom-table-catalog {
+    width: 100%;
+    color: black;
+    border: none;
+    margin-bottom: 10px;
+}
+.custom-table-catalog tbody tr td p{
+    margin-bottom:0!important;
+}
+
+.btn-catalog-show-text{
+    padding:3px;
+    font-size:12px;
+}
+
+.custom-table-catalog-p {
+    border-top: 1px solid #e4e1e1;
+}
+
+.custom-table-catalog tbody:hover {
+    /*box-shadow: 0 0 7px rgba(255,255,255,0.5);*/
+}
+
+    .custom-table-catalog td {
+        padding: 20px;
+        background-color: white;
+    }
+
+    .custom-table-catalog tr th {
+        border-left:5px solid rgba(52, 52, 52, 0.87);
+        color:white;
+        font-weight: 400;
+        font-size: 13px;
+        padding: 10px;
+        background-color: rgba(28, 28, 28, 0.44);
+    }
+
+.catalog-line {
+    /*width: 95%;
+    border-bottom: 1px solid gray;
+    padding: 2px;
+    margin: 0 0 0 20px;
+    text-align: center;*/
+}
+
+.catalog-text {
+    font-size: 12px;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    /* Non standard for WebKit */
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
+}
+
+.catalog-text-anchor-show {
+    cursor: pointer !important;
+    color: black !important;
+    text-decoration:underline !important;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+    .catalog-text-anchor-show:hover {
+        text-decoration: none;
+        color: rebeccapurple !important;
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+    }
+
+.custom-table-catalog-posts {
+    clear:both;
+    margin-top:-15px;
+    padding:0;
+    margin-left:-10px;
+}
+
+.ToolTip-Posts{
+    display:inline-block;
+}
+
+.ToolTip-Posts span {
+    background-color: #343a40;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    font-size: 12px;
+    display: none;
+    padding: 3px;
+    margin-top: -40px;
+    margin-left: -30px;
+    width: auto;
+}
+
+.ToolTip-Posts img {
+    clear: both;
+    margin-top: -12px;
+    padding: 0;
+    margin-left: -8px;
+    margin-right:5px;
+}
+
+.ToolTip-Posts:hover span {
+    z-index: 999;
+    display: inline;
+    position: absolute;
+    -webkit-animation: fadeIn 0.3s;
+    animation: fadeIn 0.3s;
+}
+
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+    from {
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotating {
+    from {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    to {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.anim-sphere img {
+
+}
+    .anim-sphere img:hover {
+        -webkit-animation: rotating 5s linear infinite;
+        -moz-animation: rotating 5s linear infinite;
+        -ms-animation: rotating 5s linear infinite;
+        -o-animation: rotating 5s linear infinite;
+        animation: rotating 5s linear infinite;
+    }
+
+.btn-small-catalog-change {
+    /*position: absolute;*/
+    background-color: transparent;
+    color: white;
+    padding: 3px 5px 3px 5px;
+    /*margin: 5px 0 0 5px;*/
+    border-color: white;
+    /*border-radius:0;*/
+    font-size: 10px;
+    font-weight: lighter;
+    /*display: inline-block;*/
+    /*float: right;*/
+    /*left: 100%;
+    margin-left: -85px;*/
+    width: 80px;
+}
+
+.catalog-scrollbar {
+    background-color: rgba(28, 28, 28, 0.44);
+    padding-top:5px;
+    overflow: scroll;
+    height: 100%;
+    font-size: 13px;
+    font-weight: 400;
+    overflow-y: auto;
+    border-right: 5px solid #272727;
+}
+    .catalog-scrollbar a {
+        color: gray;
+        text-decoration: none;
+        -webkit-transition: all 0.8s ease-in-out;
+        -moz-transition: all 0.8s ease-in-out;
+        -o-transition: all 0.8s ease-in-out;
+        transition: all 0.8s ease-in-out;
+    }
+        .catalog-scrollbar a:hover {
+            color: white;
+            -webkit-transition: all 0.1s ease-in-out;
+            -moz-transition: all 0.1s ease-in-out;
+            -o-transition: all 0.1s ease-in-out;
+            transition: all 0.1s ease-in-out;
+        }
+.catalog-scrollbar tr {
+    text-decoration: none;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+    .catalog-scrollbar table:hover {
+        /*text-decoration: underline;*/
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+    }
+.catalog-scrollbar-selected a {
+    color:white;
+    background-color: rgba(255, 255, 255, 0.20);
+    padding:3px;
+}
+
+.catalog-scrollbar img {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.catalog-scrollbar-selected::before {
+    color: white;
+    box-shadow: 0 0 7px rgba(255,255,255,0.8);
+}
+.catalog-scrollbar::-webkit-scrollbar {
+    width: 1em;
+    height: 1em
+}
+.catalog-scrollbar::-webkit-scrollbar-button {
+    background: rgba(0,0,0,0.5)
+}
+.catalog-scrollbar::-webkit-scrollbar-track-piece {
+    background: #454545
+}
+.catalog-scrollbar::-webkit-scrollbar-thumb {
+    background: #eee
+}
+.gridview-selected-row-style tr {
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+.gridview-selected-row-style tr:hover {
+    box-shadow: 0 0 7px rgba(255,255,255,0.8);
+    background-color:rgba(255, 255, 255, 0.25);
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.employees-birthdate-today {
+    display: inline-block;
+    
+    padding: 5px;
+    margin-bottom: 5px;
+    vertical-align:middle;
+    /*background-image: url('/images/birthdate.jpg');*/
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.employees-birthdate-next {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 5px;
+    margin-bottom: 5px
+}
+.employees-birthdate {
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+    .employees-birthdate:hover {
+        box-shadow: 0 0 7px rgba(255,255,255,0.8);
+        -webkit-transition: all 0.2s ease-in-out;
+        -moz-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+    }
+
+.preloader {
+    position: fixed;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 9999999;
+    background-color: rgba(0, 0, 0, 0.90);
+    -webkit-animation: fadeIn 0.2s ease-in-out;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.scrolltop {
+    display: none;
+    width: 100%;
+    margin: 0 auto;
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    z-index:9999999;
+}
+
+.scroll {
+    position: absolute;
+    width:70px;
+    height:70px;
+    right: 20px;
+    bottom: 20px;
+    background: rgba(0, 0, 0, 0.60);
+    padding: 10px;
+    text-align: center;
+    margin: 0 0 0 0;
+    cursor: pointer;
+    transition: 0.5s;
+    -moz-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    font-size:30px;
+}
+
+    .scroll:hover {
+        background: rgba(178,178,178,0.60);
+        transition: 0.5s;
+        -moz-transition: 0.5s;
+        -webkit-transition: 0.5s;
+        -o-transition: 0.5s;
+    }
+
+.pager-style td table tbody tr td a {
+    padding: 5px;
+}
+
+.btn-login {
+    padding:5px;
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+}
+    /*.btn-login:hover {
+        border-color:none;
+        background-color: rgba(255, 255, 255, 0.08);
+        box-shadow: none;
+    }*/
+
+.preloader-padding {
+    padding-top: 150px !important;
+}
+
+.ctr-gridview tr td {
+    padding: 5px;
+    border: 1px solid rgba(72, 70, 70, 0.41);
+}
+.ctr-gridview tr th {
+    padding: 5px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.90);
+    position: sticky;
+    top: 55px;
+    min-height: 2em;
+    border:1px solid white;
+}
+.btn-ctr-btn{
+    padding:2px;
+    font-size:11px;
+}
+.collapse {
+    /*white-space: pre-wrap;*/
+}
+
+.DebtorsGridView tr td {
+    padding: 0px;
+    text-align: center;
+    border: 1px solid rgba(72, 70, 70, 0.41);
+}
+.DebtorsGridView a {
+    color: deeppink;
+}
+/*.DebtorsGridView img {
+    background-image: url('/images/money.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border:none;
+    width: 20px;
+    height: 20px;
+}*/
+.DebtorsGridView tr th {
+    padding: 5px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.90);
+    position: sticky;
+    top: 55px;
+    min-height: 2em;
+    border: 1px solid white;
+}
+.debtorspaid {
+    background-color: #00ff000f;
+}
+    .debtorspaid a {
+        color: #ffed14;
+    }
+.debtornot {
+    background-color: gray;
+}
+.game-button {
+    padding: 5px;
+    margin: 10px;
+    border: solid transparent 2px;
+    transition: all 1s ease-in-out 0.1s;
+}
+    .game-button:hover {
+        background-color: rgba(116, 242, 255, 0.19);
+        border-radius: 100px;
+        border: solid #17a2b8 2px;
+        transition: all 0.3s ease-in-out;
+    }
+
+.div-division {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+    color:aqua;
+}
+
+    .div-division:hover {
+        color: aquamarine;
+        -webkit-animation: fadeIn 0.4s;
+        animation: fadeIn 0.4s;
+    }
+.panel-debtors-notification {
+    background-color: #272727;
+    padding: 20px;
+    /*border: 1px solid black;*/
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    position: absolute;
+    font-size: 12px;
+    left: 40vw;
+    top: 15vh;
+    /*margin-right: -50%;
+    margin-top: 20%;*/
+    /*transform: translate(-50%, -50%);*/
+    max-height: 70vh;
+    overflow-y: auto;
+}
+.panel-button-controls-debtors a{
+    margin:3px;
+    border:none;
+    border-bottom:1px solid red;
+}
+.panel-button-controls-debtors a:hover {
+    background-color:transparent;
+}
+    .panel-debtors-notification .btn {
+        font-size:9px;
+        padding:0 5px 0 0;
+        padding-top:5px;
+        padding-left:5px;
+        text-align:center;
+        border-radius: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        height:25px;
+        width:25px;
+    }
+    .panel-hidden {
+        visibility: hidden;
+    }
+
+.button-smooth {
+    animation: 1s linear move_eye;
+    opacity: 0.4;
+    transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+}
+    .button-smooth:hover {
+        opacity: 1;
+        transition: all 0.1s ease-in-out;
+        -webkit-transition: all 0.1s ease-in-out;
+        -moz-transition: all 0.1s ease-in-out;
+        -o-transition: all 0.1s ease-in-out;
+    }
+    @-webkit-keyframes move_eye { from { opacity:0; } to { opacity:0.4; }  }
+   @-moz-keyframes move_eye {  from { opacity:0; } to { opacity:0.4; }   }
+     @-o-keyframes move_eye { from { opacity:0; } to { opacity:0.4; }   }
+        @keyframes move_eye { from { opacity:0; } to { opacity:0.4; }   }
+
+.debt_stat_th th{
+    padding:5px;
+}
+.debt_stat_tr td {
+    padding: 5px;
+    text-align:center;
+}
