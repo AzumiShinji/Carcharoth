@@ -164,7 +164,7 @@
                                 </EditItemTemplate>
                                   <ItemTemplate>
                                         <asp:Button ID="deletebtn" runat="server" CommandName="DeleteRow"
-                                            ControlStyle-CssClass="btn btn-danger btn-sm"
+                                            ControlStyle-CssClass="btn btn-danger btn-sm" Visible="false" Enabled="false"
                                          Text="Удалить" OnClientClick="return confirm('Вы уверены, что хотите удалить сотрудника?');" />
                                   </ItemTemplate>
                             </asp:TemplateField>

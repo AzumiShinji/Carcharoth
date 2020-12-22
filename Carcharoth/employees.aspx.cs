@@ -14,12 +14,14 @@ namespace Carcharoth
     public partial class employess : System.Web.UI.Page
     {
         private SqlConnection conn = new SqlConnection(index.CM);
+        protected int Level = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Request.IsAuthenticated)
             {
                 if (Session["Level"] == null)
                     Response.Redirect("/catalog.aspx");
+                Level = (int)Session["Level"];
                 if ((int)Session["Level"] >= 2)
                 {
                     if (!IsPostBack)
@@ -46,6 +48,7 @@ namespace Carcharoth
                     EmployeesGridAdd.Enabled = false;
                     EmployeesGridAdd.Visible = false;
                 }
+              
             }
             else
             {
@@ -117,7 +120,7 @@ namespace Carcharoth
 
         protected void EmployeesGrid_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            
+            EmployeesGrid.Columns[EmployeesGrid.Columns.Count - 1].Visible = true;
             EmployeesGrid.EditIndex = e.NewEditIndex;
             
 
@@ -401,6 +404,12 @@ namespace Carcharoth
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
+                if (Level >= 3)
+                {
+                    var deletebtn = e.Row.FindControl("deletebtn") as Button;
+                    deletebtn.Enabled = true;
+                    deletebtn.Visible = true;
+                }
                 bool isVacation = false;
                 bool isBirthDay = false;
                 var text = e.Row.Cells[8].Text;

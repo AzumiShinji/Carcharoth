@@ -153,7 +153,7 @@ namespace Carcharoth
         {
             try
             {
-                if (Password1.Text != "123")
+                if (Password1.Text != "123" && (string)Session["Login"]!=null)
                 {
                     if (Password1.Text.Trim() == Password2.Text.Trim())
                     {
@@ -163,7 +163,7 @@ namespace Carcharoth
                             using (SqlCommand sqlCommand = new SqlCommand("UPDATE UsersCarcharoth SET Password=@new_password WHERE Login LIKE @username", sqlConnection))
                             {
                                 sqlConnection.Open();
-                                sqlCommand.Parameters.AddWithValue("@username", LoginTB.Text);
+                                sqlCommand.Parameters.AddWithValue("@username", (string)Session["Login"]);
                                 sqlCommand.Parameters.AddWithValue("@new_password", HASH.GetHash(sha256Hash, Password1.Text.Trim()));
                                 sqlCommand.ExecuteScalar();
                                 Settings.ExpireAllCookies();

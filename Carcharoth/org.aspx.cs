@@ -41,7 +41,7 @@ namespace Carcharoth
                 " OR okpoCode = N'" + code + "'" +
                 " OR pgmu = N'" + code + "'"
                 ;
-            infoaboutserver.AddHistory("Поиск организации по коду: "+code);
+         //   infoaboutserver.AddHistory("Поиск организации по коду: "+code);
         }
 
         protected void SearchOrgByNameBtn_Click(object sender, EventArgs e)
@@ -83,7 +83,7 @@ namespace Carcharoth
                         "SELECT TOP 100 * FROM runbp " + resname;
             }
 
-            infoaboutserver.AddHistory("Поиск организации по имени: " + SearchOrgsTextBox.Text);
+          //  infoaboutserver.AddHistory("Поиск организации по имени: " + SearchOrgsTextBox.Text);
         }
         #endregion
 
