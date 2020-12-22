@@ -35,7 +35,7 @@
                                                         <div style="text-align:center;">Поиск по наименованию
                                                             <div style="margin:0 20% 0 20%; border-bottom:1px solid gray;"></div>
                                                         </div>
-                                                            • Максимум - 100 результатов, для уточнения результатов - уточняйте запрос <br />
+                                                            • Максимум - 100 результатов, для сокращения результатов - уточняйте запрос <br />
                                                             • Пробуйте использовать ключевые слова из наименования: город, муниципальное, государственное и.т.д...<br />
                                                         </div>
                                                         <div style="display:inline-block;text-align:left;vertical-align:top;padding-left:50px;">

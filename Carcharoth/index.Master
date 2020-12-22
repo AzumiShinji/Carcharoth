@@ -13,6 +13,7 @@
         <link rel="stylesheet" runat="server" media="screen" href="css/creative.css" />
         <link rel="stylesheet" runat="server" media="screen" href="css/slidetext.css" />
         <link rel="stylesheet" runat="server" media="screen" href="css/loader.css" />
+        <link href="css/SantasReindeer.css" rel="stylesheet" runat="server" media="screen"  />
         <link rel="icon" href="favicon.ico" type="image/x-icon"/>
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
         <script src="js/jquery.min.js"></script>
@@ -138,15 +139,16 @@
                              <img src="/images/games.png" runat="server" class="d-inline-block align-top navigation-btn button-smooth" width="35" alt="" />
                     </a>
                 </div>
-                <div style="font-size:10px;margin-left:-40%;display:inline-flex">
-                    <div style="display:inline-block;margin-top:5px;">
+                <div style="font-size:12px;margin-left:-50%;display:inline-flex;">
+             <%--       <div style="display:inline-block;margin-top:5px;">
                         <img runat="server" width="20" src="/images/alert.png"/>
-                    </div>
+                    </div>--%>
                     <div style="display:inline-block">   
-                        <asp:Panel runat="server" ID="bdPanel" ClientIDMode="AutoID" hidden="true" style="position:absolute;top:0">
-                                <img src="/images/birthday-min.gif" height="15"> Сегодня празднуют день рождение: <%= GetBirthDayToAlerts() %> <img src="/images/birthday-min.gif" height="15">
+                        <asp:Panel runat="server" ID="bdPanel" ClientIDMode="AutoID" hidden="true"
+                            style="position:relative;top:0;background-color:rgba(40, 40, 40, 0.98);height:inherit;max-height:40px" ScrollBars="Auto">
+                            <%= GetBirthDayToAlerts() %>
                         </asp:Panel>
-                        <div id="slider">
+                        <%--<div id="slider">
                             <div class="container">
                                 <asp:ListView ID="DataTree" runat="server" DataSourceID="AlertsSQLSource" RepeatColumns="1"
                                 CellSpacing="1">  
@@ -159,9 +161,9 @@
                                     </ItemTemplate>  
                                 </asp:ListView>  
                             </div>
-                        </div>
+                        </div>--%>
                         <input style="display: none;" type="password" name="pwdplaceholder"/>
-                    <asp:SqlDataSource ID="AlertsSQLSource" runat="server" ConnectionString="<%$ ConnectionStrings:ToCatalogDB %>" SelectCommand="Select top 5 * From Alerts order by Id desc"></asp:SqlDataSource>  
+                    <%--<asp:SqlDataSource ID="AlertsSQLSource" runat="server" ConnectionString="<%$ ConnectionStrings:ToCatalogDB %>" SelectCommand="Select top 5 * From Alerts order by Id desc"></asp:SqlDataSource>--%>  
                     </div>
                 </div>
                     <asp:Panel runat="server" ID="ПанельСписокДолжников" CssClass="panel-debtors-notification panel-hidden">
@@ -184,9 +186,9 @@
                               <asp:LinkButton runat="server" ID="linkbtnEditUsers" Enabled="false" Visible="false" CssClass="dropdown-item" OnClick="linkbtnEditUsers_Click">
                                   Управление пользователями
                               </asp:LinkButton>
-                              <asp:LinkButton runat="server" ID="linkbtnEditAlerts" Enabled="false" Visible="false" CssClass="dropdown-item" OnClick="linkbtnEditAlerts_Click">
+                          <%--    <asp:LinkButton runat="server" ID="linkbtnEditAlerts" Enabled="false" Visible="false" CssClass="dropdown-item" OnClick="linkbtnEditAlerts_Click">
                                   Управление оповещениями
-                              </asp:LinkButton>
+                              </asp:LinkButton>--%>
                               <asp:LinkButton runat="server" ID="linkbtnServerInfo" Enabled="false" Visible="false" CssClass="dropdown-item" OnClick="linkbtnServerInfo_Click">
                                   О сервере
                               </asp:LinkButton>
@@ -246,7 +248,7 @@
                           <div class="modal-footer" style="display:block">
                             <div>
                                  <asp:LinkButton ID="DeletePost" style="margin-left:0;" CssClass="btn btn-sm btn-danger" runat="server" OnClick="DeletePost_Click">Удалить</asp:LinkButton>   
-                                <asp:LinkButton CssClass="btn btn-sm btn-success" style="float:right" ID="AddEditPosts" runat="server" Text="Подтвердить" UseSubmitBehavior="true" CausesValidation="True" OnClick="AddEditPosts_Click" />
+                                <asp:LinkButton CssClass="btn btn-sm btn-success" style="float:right" ID="AddEditPosts" runat="server" Text="Изменить" UseSubmitBehavior="true" CausesValidation="True" OnClick="AddEditPosts_Click" />
                                 <button type="button" class="btn btn-sm btn-secondary" style="float:right;margin-right:5px" data-dismiss="modal">Закрыть</button>
                             </div>
                           </div>

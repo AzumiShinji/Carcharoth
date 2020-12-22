@@ -55,8 +55,8 @@ namespace Carcharoth
                     linkbtnEditUsers.Visible = true;
                     linkbtnServerInfo.Enabled = true;
                     linkbtnServerInfo.Visible = true;
-                    linkbtnEditAlerts.Visible = true;
-                    linkbtnEditAlerts.Enabled = true;
+                    //linkbtnEditAlerts.Visible = true;
+                    //linkbtnEditAlerts.Enabled = true;
                 }
             }
         }
@@ -568,7 +568,7 @@ namespace Carcharoth
                     {
                         if (result.Day == DateTime.Now.Day && result.Month == DateTime.Now.Month)
                         {
-                            bd += s.FIO + ", ";
+                            bd += "<img src=\"/images/birthday-min.gif\" height=\"15\">" + s.FIO + "<img src=\"/images/birthday-min.gif\" height=\"15\"><br/>";
                         }
                     }
                 }
@@ -581,7 +581,7 @@ namespace Carcharoth
     true);
                     bdPanel.Enabled = true;
                     bdPanel.Visible = true;
-                    bd = bd.Remove(bd.Length - 2, 2);
+                    bd = bd.Remove(bd.Length - 5, 5);
                 }
                 else
                 {

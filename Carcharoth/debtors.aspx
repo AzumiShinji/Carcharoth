@@ -22,7 +22,7 @@
                                 <div style="display: table;width:100%;font-size:12px">
                                         <asp:Label ID="ResponsibilityUsersLabel" runat="server" Text="Ответственное лицо: нет" Font-Size="10px" />
                                 </div>
-                                <asp:Label runat="server" Text="Подсказка: При наведении на ячейку со взносом, можно узнать, кто добавил."/>
+                                <asp:Label runat="server" Text="Подсказка: При наведении на ячейку со взносом, можно узнать, кто добавил." Font-Size="11"/>
                                 <br />
                                 <asp:LinkButton runat="server" ID="AcceptGVDataSortBtn" OnClick="AcceptGVDataSortBtn_Click" Text="Сортировка только по сотрудникам" />
                             </div>
@@ -35,7 +35,7 @@
 
                                 <asp:LinkButton CssClass="btn btn-sm btn-outline-light" runat="server" ID="ДобавитьВзнос" OnClick="ДобавитьВзнос_Click" Text="Добавить"/>
                                 </br>
-                                <asp:Label runat="server" ID="StatusDebtInfo" />
+                                <asp:Label runat="server" ID="StatusDebtInfo"  Font-Size="14" ForeColor="OrangeRed" Font-Bold="true"/>
                             </div>
                             <div style="display:inline-block;vertical-align:top;border:1px solid white;padding:10px;margin:5px;max-width:350px;">
                                 <div>
@@ -45,7 +45,7 @@
                                     </asp:Panel>
                                 </div>
                             </div>
-                            <p style="margin-left:500px;margin-right:500px;text-align:center">После создания взноса он будет закреплен за Вами (удалять и управлять можете только Вы), если взнос - скрытый, то он будет видимым только для Вас и общий долг учитываться не будет по этому столбцу.</p>
+                            <p style="margin-left:500px;margin-right:500px;text-align:center;font-size:11px">После создания взноса он будет закреплен за Вами (удалять и управлять можете только Вы), если взнос - скрытый, то он будет видимым только для Вас и общий долг учитываться не будет по этому столбцу.</p>
                             </br>
                         </asp:Panel>
                             <div style="position:absolute;margin-top:100px;margin-left:20px;border: 1px solid white;padding:10px;text-align:left;font-size:12px">
@@ -106,7 +106,7 @@
                                 <asp:TemplateField HeaderText="Производить учет" SortExpression="Role" ControlStyle-BackColor="Transparent" ControlStyle-BorderStyle="None">
                                 <ItemTemplate>
                                     <asp:CheckBox ID="УчетВзносовСотрудника" runat="server" CssClass="GridRowListUsers form-control form-control-sm"
-                                        ClientIDMode="AutoID"
+                                        ClientIDMode="AutoID" 
                                         OnCheckedChanged="УчетВзносовСотрудника_CheckedChanged"
                                         AutoPostBack="true"
                                         Checked='<%#(object)Eval("Учет")==DBNull.Value?false:(bool)Eval("Учет") %>' />

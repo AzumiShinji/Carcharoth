@@ -25,6 +25,10 @@ namespace Carcharoth
             {
                 Добавить_Ответственное_Лицо();
             }
+            else
+            {
+                
+            }
             Обновить_Статистику();
             if (Request.IsAuthenticated)
             {
@@ -146,6 +150,8 @@ namespace Carcharoth
                             Добавить_Кнопку_Удаления_Столбцов(head);
                             Обновить_Статистику();
                             infoaboutserver.AddHistory("Debtors: добавлен взнос "+ description);
+                            SumDebtTB.Text = null;
+                            DescriptionDebt.Text = null;
                         }
                         catch (SqlException ex)
                         {
@@ -264,48 +270,54 @@ namespace Carcharoth
                 var new_link = new LinkButton();
                 new_link.Text = name;
                 new_link.Attributes.Add("Class", "btn btn-sm btn-outline-danger");
-                new_link.Click += (q, e) =>
-                {
-                    using (SqlConnection sqlConnection = new SqlConnection(index.CM))
-                    using (SqlCommand sqlCommand = new SqlCommand("ALTER TABLE Debtors DROP COLUMN [" + name + "]", sqlConnection))
-                    {
-                        sqlConnection.Open();
-                        sqlCommand.ExecuteNonQuery();
-                        sqlConnection.Close();
-                    }
-                    ПанельУдаленияСтолбцов.Controls.Remove(((LinkButton)q));
-                    ПереРассчитатьДолгВсехСотрудников();
-                    GVDataDebtorsSQL.DataBind();
-                    StatusDebtInfo.Text = "Колонка взносов с именем \"" + name + "\" - удалена.";
-                    Заполнить_Стили_Таблицы();
-                    Обновить_Статистику();
-                    ///
-                    conn.Open();
-                    string bailee = String.Empty;
-                    using (SqlConnection sqlConnection = new SqlConnection(index.CM))
-                    using (SqlCommand sqlCommand = new SqlCommand("SELECT Bailee FROM Debtors WHERE ID=" + GetIDBailee(), sqlConnection))
-                    {
-                        sqlCommand.Parameters.AddWithValue("@ФИО", (string)Session["FIO"]);
-                        sqlConnection.Open();
-                        using (SqlDataReader reader = sqlCommand.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                bailee = (object)reader["Bailee"] == DBNull.Value ? "" : (string)reader["Bailee"];
-                            }
-                        }
-                        sqlConnection.Close();
-                    }
-                    bailee = bailee.Replace(";"+name, String.Empty);
-                    SqlCommand cmd3 = new SqlCommand("UPDATE Debtors SET [Bailee]=@bailee WHERE ID=" + GetIDBailee(), conn);
-                    cmd3.Parameters.AddWithValue("@bailee", bailee);
-                    cmd3.ExecuteNonQuery();
-                    conn.Close();
-                    infoaboutserver.AddHistory("Debtors: удален взнос " + name);
-                };
+                new_link.Attributes.Add("OnClick", "return confirm('Вы уверены, что хотите удалить \""+name+"\"?');");
+                new_link.Command += ConfirmEventDeleteColumn;
+                new_link.CommandName = name;
                 ПанельУдаленияСтолбцов.Controls.Add(new_link);
             }
         }
+
+        private void ConfirmEventDeleteColumn(object sender, CommandEventArgs e)
+        {
+            var name = e.CommandName;
+            using (SqlConnection sqlConnection = new SqlConnection(index.CM))
+            using (SqlCommand sqlCommand = new SqlCommand("ALTER TABLE Debtors DROP COLUMN [" + name + "]", sqlConnection))
+            {
+                sqlConnection.Open();
+                sqlCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+            }
+            ПанельУдаленияСтолбцов.Controls.Remove(((LinkButton)sender));
+            ПереРассчитатьДолгВсехСотрудников();
+            GVDataDebtorsSQL.DataBind();
+            StatusDebtInfo.Text = "Колонка взносов с именем \"" + name + "\" - удалена.";
+            Заполнить_Стили_Таблицы();
+            Обновить_Статистику();
+            ///
+            conn.Open();
+            string bailee = String.Empty;
+            using (SqlConnection sqlConnection = new SqlConnection(index.CM))
+            using (SqlCommand sqlCommand = new SqlCommand("SELECT Bailee FROM Debtors WHERE ID=" + GetIDBailee(), sqlConnection))
+            {
+                sqlCommand.Parameters.AddWithValue("@ФИО", (string)Session["FIO"]);
+                sqlConnection.Open();
+                using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        bailee = (object)reader["Bailee"] == DBNull.Value ? "" : (string)reader["Bailee"];
+                    }
+                }
+                sqlConnection.Close();
+            }
+            bailee = bailee.Replace(";" + name, String.Empty);
+            SqlCommand cmd3 = new SqlCommand("UPDATE Debtors SET [Bailee]=@bailee WHERE ID=" + GetIDBailee(), conn);
+            cmd3.Parameters.AddWithValue("@bailee", bailee);
+            cmd3.ExecuteNonQuery();
+            conn.Close();
+            infoaboutserver.AddHistory("Debtors: удален взнос " + name);
+        }
+
         protected void Обновить_Кнопки_Удаления_Столбцов()
         {
             var list_headers = new List<string>();
@@ -384,7 +396,7 @@ namespace Carcharoth
                             if (isChecked)
                             {
                                 строка.Attributes.Add("style", "background-color:#ff00000f;text-decoration: none;");//red
-                                ячейка.Attributes.Add("style", "background-color:#ff000057;color:White");//red dolg
+                                ячейка.Attributes.Add("style", "background-color:#ff000057;color:White;padding:10px;");//red dolg
                             }
                             else
                             {
@@ -435,7 +447,8 @@ namespace Carcharoth
                         var separator = new Label() { Text = " | "};
                         var linkbtn_cash = new LinkButton() { Text="Нал." };
                         var linkbtn_notcash = new LinkButton() { Text = "Безнал." };
-                        var cell_учет = new LinkButton() { Text= ячейка.Text=="Неучет"?"Неучет":"Учет" };
+                        var cell_учет = new LinkButton() { Text = ячейка.Text == "Неучет" ? "Неучет" : "Учет", };
+                        cell_учет.Attributes.Add("style", "Color:Yellow;font-weight:bold");
                         
                         if (isAllow)
                         {
@@ -460,8 +473,13 @@ namespace Carcharoth
                         {
                             var obj = (LinkButton)ob;
                             if (obj.Text != "Неучет")
+                            {
                                 PayBtn(ячейка, debt, ID, "Неучет");
-                            else PayBtn(ячейка, debt, ID, "0");
+                            }
+                            else
+                            {
+                                PayBtn(ячейка, debt, ID, "0");
+                            }
                         };
                         if (!IsPaid && ячейка.Text!="Неучет")
                         {
@@ -482,9 +500,21 @@ namespace Carcharoth
                         }
                         //style
                         if (ячейка.Text == "Нал." || ячейка.Text == "Безнал.")
-                            ячейка.Attributes.Add("class", "debtorspaid");//yellow dolg
-                        else if(ячейка.Text == "Неучет")
-                            ячейка.Attributes.Add("style", "background-color:#423f3f5c");
+                        {
+                            ячейка.Attributes.Remove("class");
+                            ячейка.Attributes.Add("class", "debtorspaid");
+                        }
+                        else if (ячейка.Text == "Неучет")
+                        {
+                            ячейка.Attributes.Remove("class");
+                            ячейка.Attributes.Add("class", "debtors-is-not-account");
+                        }
+                        else
+                        {
+                            ячейка.Attributes.Remove("class");
+                            ячейка.Attributes.Add("class", "debtors-is-not-done-paid");
+                        }
+                        ячейка.Attributes.Add("style", "padding:10px;");
                     }
                 }
             }

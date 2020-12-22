@@ -31,7 +31,9 @@ namespace Carcharoth
                     EmployeesGridAdd.Enabled = true;
                     EmployeesGridAdd.Visible = true;
                     if ((int)Session["Level"] >= 3)
+                    { 
                         EmployeesGrid.Columns[EmployeesGrid.Columns.Count - 1].Visible = true;
+                    }
                 }
                 else
                 {
@@ -115,6 +117,7 @@ namespace Carcharoth
 
         protected void EmployeesGrid_RowEditing(object sender, GridViewEditEventArgs e)
         {
+            
             EmployeesGrid.EditIndex = e.NewEditIndex;
             
 
@@ -135,7 +138,7 @@ namespace Carcharoth
                 catch { }
             }
         }
-
+         
         protected void EmployeesGrid_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             int userid = Convert.ToInt32(EmployeesGrid.DataKeys[e.RowIndex].Value.ToString());
@@ -153,10 +156,14 @@ namespace Carcharoth
             TextBox PositionTxt = (TextBox)row.Cells[5].Controls[0];
             TextBox PhoneTxt = (TextBox)row.Cells[6].Controls[0];
             TextBox BirthDateTxt = (TextBox)row.Cells[7].Controls[0];
-            TextBox RestTxt = (TextBox)row.Cells[8].Controls[0];
+            var VacationsTextBox = row.FindControl("VacationsTextBox") as TextBox;
+            string vacations = "";
+            if(!String.IsNullOrEmpty(VacationsTextBox.Text))
+            { vacations = VacationsTextBox.Text.Trim(); }
+            //TextBox RestTxt = (TextBox)row.Cells[8].Controls[0];
             EmployeesGrid.EditIndex = -1;
             conn.Open();
-            SqlCommand cmd = new SqlCommand("UPDATE [Users] SET Code=N'"+CodeTxt.Text+ "',FIO=N'" + FIOTxt.Text + "',Email=N'" + EmailTxt.Text + "',Direction=N'" + String.Join("/", selected) + "',Position=N'" + PositionTxt.Text + "',Phone=N'" + PhoneTxt.Text + "',BirthDate=N'" + BirthDateTxt.Text + "',Rest=N'" + RestTxt.Text + "' WHERE ID = '" + userid + "'", conn);
+            SqlCommand cmd = new SqlCommand("UPDATE [Users] SET Code=N'"+CodeTxt.Text+ "',FIO=N'" + FIOTxt.Text + "',Email=N'" + EmailTxt.Text + "',Direction=N'" + String.Join("/", selected) + "',Position=N'" + PositionTxt.Text + "',Phone=N'" + PhoneTxt.Text + "',BirthDate=N'" + BirthDateTxt.Text + "',Rest=N'" + vacations + "' WHERE ID = '" + userid + "'", conn);
             cmd.ExecuteNonQuery();
             conn.Close();
             GetData();
@@ -166,7 +173,7 @@ namespace Carcharoth
         protected void EmployeesGrid_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             EmployeesGrid.PageIndex = e.NewPageIndex;
-            GetData(); ;
+            GetData();
         }
         protected void EmployeesGrid_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
@@ -444,40 +451,101 @@ namespace Carcharoth
                 #endregion
             }
         }
-
+        public string ConvertVacationsToReadable(object obj)
+        {
+            if (obj == null || obj==DBNull.Value) return "";
+            string vacations = (string)obj;
+            string result = "";
+            if (!String.IsNullOrEmpty(vacations))
+            {
+                int count = 0;
+                foreach(var s in vacations.Split('|'))
+                {
+                    if (s.Contains("-"))
+                    {
+                        var prev = s.Split('-');
+                        if (prev.Length == 2)
+                        {
+                            count++;
+                            bool islast = false;
+                            if (count == vacations.Count())
+                                islast = true;
+                            if(!islast)
+                            result += String.Format("{0}: с {1} по {2}<br/>", count.ToRoman(), prev[0],prev[1]);
+                            else
+                            result += String.Format("{0}: с {1} по {2}", count.ToRoman(), prev[0],prev[1]);
+                        }
+                    }
+                }
+            }
+            return result;
+        }
         #endregion
 
         protected void EmployeesGrid_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if(e.CommandName=="DeleteRow")
+            switch(e.CommandName)
             {
-                GridViewRow _row = (GridViewRow)(((Button)e.CommandSource).NamingContainer);
-                int row_index = _row.RowIndex;
-                GridViewRow row = (GridViewRow)EmployeesGrid.Rows[row_index];
-                var id = EmployeesGrid.Rows[row_index].DataItemIndex;
-                string Email = "";
-                using (SqlConnection sqlConnection = new SqlConnection(index.CM))
-                using (SqlCommand sqlCommand = new SqlCommand("SELECT * from Users Where ID=@ID", sqlConnection))
-                {
-                    sqlCommand.Parameters.AddWithValue("@ID", Convert.ToInt32(EmployeesGrid.DataKeys[row_index].Value.ToString()));
-                    sqlConnection.Open();
-                    using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                case ("DeleteRow"):
                     {
-                        while (reader.Read())
+                        GridViewRow _row = (GridViewRow)(((Button)e.CommandSource).NamingContainer);
+                        int row_index = _row.RowIndex;
+                        GridViewRow row = (GridViewRow)EmployeesGrid.Rows[row_index];
+                        var id = EmployeesGrid.Rows[row_index].DataItemIndex;
+                        string Email = "";
+                        using (SqlConnection sqlConnection = new SqlConnection(index.CM))
+                        using (SqlCommand sqlCommand = new SqlCommand("SELECT * from Users Where ID=@ID", sqlConnection))
                         {
-                            Email = (string)reader["Email"];
+                            sqlCommand.Parameters.AddWithValue("@ID", Convert.ToInt32(EmployeesGrid.DataKeys[row_index].Value.ToString()));
+                            sqlConnection.Open();
+                            using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    Email = (string)reader["Email"];
+                                }
+                            }
+                            sqlConnection.Close();
                         }
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand("delete FROM users where ID='" + Convert.ToInt32(EmployeesGrid.DataKeys[row_index].Value.ToString()) + "'", conn);
+                        cmd.ExecuteNonQuery();
+                        conn.Close();
+                        GetData();
+                        StatusLabel.Text = Email + " - удален";
+                        infoaboutserver.AddHistory("Удален сотрудник - " + Email);
+                        break;
                     }
-                    sqlConnection.Close();
-                }
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("delete FROM users where ID='" + Convert.ToInt32(EmployeesGrid.DataKeys[row_index].Value.ToString()) + "'", conn);
-                cmd.ExecuteNonQuery();
-                conn.Close();
-                GetData();
-                StatusLabel.Text = Email + " - удален";
-                infoaboutserver.AddHistory("Удален сотрудник - " + Email);
+                case ("Cancel"):
+                    {
+                        var grid = (GridView)sender;
+                        grid.EditIndex = -1;
+                        grid.DataBind();
+                        break;
+                    }
             }
+        }
+    }
+    public static class Extenstions
+    {
+        public static string ToRoman(this int number)
+        {
+            if ((number < 0) || (number > 3999)) throw new ArgumentOutOfRangeException("insert value betwheen 1 and 3999");
+            if (number < 1) return string.Empty;
+            if (number >= 1000) return "M" + ToRoman(number - 1000);
+            if (number >= 900) return "CM" + ToRoman(number - 900);
+            if (number >= 500) return "D" + ToRoman(number - 500);
+            if (number >= 400) return "CD" + ToRoman(number - 400);
+            if (number >= 100) return "C" + ToRoman(number - 100);
+            if (number >= 90) return "XC" + ToRoman(number - 90);
+            if (number >= 50) return "L" + ToRoman(number - 50);
+            if (number >= 40) return "XL" + ToRoman(number - 40);
+            if (number >= 10) return "X" + ToRoman(number - 10);
+            if (number >= 9) return "IX" + ToRoman(number - 9);
+            if (number >= 5) return "V" + ToRoman(number - 5);
+            if (number >= 4) return "IV" + ToRoman(number - 4);
+            if (number >= 1) return "I" + ToRoman(number - 1);
+            throw new ArgumentOutOfRangeException("something bad happened");
         }
     }
 }

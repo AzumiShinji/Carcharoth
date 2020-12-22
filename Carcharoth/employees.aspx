@@ -34,7 +34,9 @@
                             <asp:TextBox CssClass="form-control form-control-sm" HeaderText="Код" Width="5%" ID="InsertCode" PlaceHolder="Код" runat="server"></asp:TextBox>
                             <asp:TextBox CssClass="form-control form-control-sm" HeaderText="ФИО" ID="InsertFIO" PlaceHolder="ФИО"  runat="server"></asp:TextBox>
                             <input style="display: none;" type="password" name="pwdplaceholder"/>
-                            <asp:TextBox CssClass="form-control form-control-sm" HeaderText="Email" AutoCompleteType="None" autocomplete="nope" ID="InsertEmail" PlaceHolder="Email"  runat="server"></asp:TextBox>
+                            <input style="display: none;" type="email" name="email">
+                            <asp:TextBox CssClass="form-control form-control-sm" HeaderText="Email" type="text"
+                                AutoCompleteType="Disabled" autocomplete="stopdoingthat" ID="InsertEmail" PlaceHolder="Email"  runat="server"></asp:TextBox>
                             <asp:ListBox runat="server" SelectionMode="Multiple" ID="InsertDirection"  CssClass="form-control form-control-sm" HeaderText="Направление">
                                 <asp:ListItem Enabled="true" Selected="True" Text="Не определено" Value="Не определено" />
                                 <asp:ListItem Text="ДС ФК" Value="ДС ФК" />
@@ -60,9 +62,9 @@
                             </asp:DropDownList>--%>
                             <asp:TextBox CssClass="form-control form-control-sm" HeaderText="Должность" ID="InsertPosition" PlaceHolder="Должность"  runat="server"></asp:TextBox>
                             <asp:TextBox CssClass="form-control form-control-sm" HeaderText="Телефон" ID="InsertPhone" PlaceHolder="Телефон"  runat="server"></asp:TextBox>
-                            <asp:TextBox CssClass="form-control form-control-sm" HeaderText="Дата рождения" ID="InsertBirthDate" PlaceHolder="ДР (10.10.1990)"  runat="server"></asp:TextBox>
+                            <asp:TextBox CssClass="form-control form-control-sm" HeaderText="Дата рождения" ID="InsertBirthDate" PlaceHolder="Дата рожд. (10.10.1990)"  runat="server"></asp:TextBox>
                             <asp:LinkButton CssClass="btn btn-success btn-sm" runat="server" ID="AddNewEmployees" Text="Добавить" OnClick="AddNewEmployees_Click"></asp:LinkButton>
-                                <br /><asp:Label ID="StatusLabel" ForeColor="Red" runat="server" />
+                                <br /><asp:Label ID="StatusLabel" ForeColor="OrangeRed" runat="server" Font-Size="14" Font-Bold="true"/>
                         </div>
                     </asp:Panel>
                     <asp:Panel runat="server">
@@ -94,7 +96,7 @@
                         runat="server" AllowSorting="false" DataKeyNames="ID" AutoGenerateColumns="false" CssClass="GridListEmployees gridview-selected-row-style"
                         BorderColor="Transparent" HeaderStyle-HorizontalAlign="Center"
                         OnRowEditing="EmployeesGrid_RowEditing" OnRowUpdating="EmployeesGrid_RowUpdating"
-                        OnRowCommand="EmployeesGrid_RowCommand"
+                        OnRowCommand="EmployeesGrid_RowCommand" 
                         OnPageIndexChanging="EmployeesGrid_PageIndexChanging" OnRowCancelingEdit="EmployeesGrid_RowCancelingEdit" OnRowDataBound="EmployeesGrid_RowDataBound">
                         <Columns>
                             <asp:BoundField DataField="ID" ItemStyle-HorizontalAlign="Center" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
@@ -135,13 +137,34 @@
                             <asp:BoundField ControlStyle-CssClass="form-control form-control-sm" HeaderText="Должность" DataField="Position" runat="server"></asp:BoundField>
                             <asp:BoundField ControlStyle-CssClass="form-control form-control-sm" HeaderText="Телефон" DataField="Phone" runat="server"></asp:BoundField>
                             <asp:BoundField ControlStyle-CssClass="form-control form-control-sm" HeaderText="Дата рождения" DataField="BirthDate" runat="server"></asp:BoundField>
-                            <asp:BoundField ControlStyle-CssClass="form-control form-control-sm" HeaderText="Отпуска" DataField="Rest" runat="server"></asp:BoundField>
-                            <asp:CommandField ShowEditButton="true" EditText="Править" UpdateText="Обновить" CancelText="Отмена" />
+                            <%--<asp:BoundField ControlStyle-CssClass="form-control form-control-sm" HeaderText="Отпуска" DataField="Rest" runat="server"></asp:BoundField>--%>
+                            <asp:TemplateField HeaderText="Отпуска">
+                                <EditItemTemplate>
+                                    <asp:Label runat="server" Font-Size="8" ForeColor="LightGray">
+                                        <p>
+                                            Разделитель между периодами - | </br>
+                                            Например: 06.04.2020-19.04.2020|06.07.2020-13.07.2020|17.08.2020-30.08.2020
+                                        </p>
+                                    </asp:Label>
+                                    <asp:TextBox ID="VacationsTextBox" Text='<%# Eval("Rest") %>' runat="server" CssClass="form-control form-control-sm"/>
+                                </EditItemTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="VacationsLabel"
+                                        Text='<%# ConvertVacationsToReadable(Eval("Rest")) %>' runat="server"/>
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:CommandField ShowEditButton="true" EditText="Править" UpdateText="Обновить" ShowCancelButton="false"
+                                CancelText="Отмена" ControlStyle-CssClass="btn btn-dark btn-sm"/>
                             <%--<asp:CommandField ShowDeleteButton="true" DeleteText="Удалить" CausesValidation="true"/>--%> 
                             <asp:TemplateField>
+                                <EditItemTemplate>
+                                     <asp:Button ID="deletebtn" runat="server" Enabled="True"
+                                            ControlStyle-CssClass="btn btn-light btn-sm" CommandName="Cancel"
+                                         Text="Отмена" />
+                                </EditItemTemplate>
                                   <ItemTemplate>
-                                        <asp:Button ID="deletebtn" runat="server" CommandName="DeleteRow" 
-                                            ControlStyle-CssClass="btn btn-danger btn-small"
+                                        <asp:Button ID="deletebtn" runat="server" CommandName="DeleteRow"
+                                            ControlStyle-CssClass="btn btn-danger btn-sm"
                                          Text="Удалить" OnClientClick="return confirm('Вы уверены, что хотите удалить сотрудника?');" />
                                   </ItemTemplate>
                             </asp:TemplateField>

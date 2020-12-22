@@ -16,24 +16,28 @@
                 </asp:UpdateProgress>
             <asp:UpdatePanel UpdateMode="Always" runat="server">
                 <ContentTemplate>
-                <div class="grid1">
-                    <asp:Label runat="server" ID="StatusText" />
-                    <asp:GridView ID="UsersGrid" runat="server" RowStyle-CssClass="border-dark" HeaderStyle-BorderColor="Gray" AutoGenerateColumns="false" CssClass="GridListUsers gridview-selected-row-style" BorderColor="Transparent" HeaderStyle-HorizontalAlign="Center" OnRowCommand="UsersGrid_RowCommand">
+                <div class="grid1" style="width:100%">
+                    <div style="text-align:center">
+                        <asp:Label runat="server" ID="StatusText" />
+                        <asp:GridView ID="UsersGrid" runat="server" RowStyle-CssClass="border-dark" HeaderStyle-BorderColor="Gray" 
+                            AutoGenerateColumns="false" CssClass="GridListUsers gridview-selected-row-style" BorderColor="Transparent" 
+                            Width="100%"
+                            HeaderStyle-HorizontalAlign="Center" OnRowCommand="UsersGrid_RowCommand">
                         <Columns>
                              <asp:BoundField DataField="Id" ItemStyle-HorizontalAlign="Center" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
-                            <asp:TemplateField HeaderText="ФИО" SortExpression="Role" HeaderStyle-Width="30%" ControlStyle-BackColor="Transparent" ControlStyle-BorderStyle="None">
+                            <asp:TemplateField HeaderText="ФИО" SortExpression="Role" ControlStyle-BackColor="Transparent" ControlStyle-BorderStyle="None">
                                 <ItemTemplate>
                                     <asp:TextBox CssClass="form-control form-control-sm" ReadOnly="false" Width="100%" ID="FIO" Text='<%#Eval("FIO")%>' runat="server"></asp:TextBox>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                             <asp:TemplateField HeaderText="Логин" SortExpression="Role" HeaderStyle-Width="30%" ControlStyle-BackColor="Transparent" ControlStyle-BorderStyle="None">
+                             <asp:TemplateField HeaderText="Логин" SortExpression="Role" ControlStyle-BackColor="Transparent" ControlStyle-BorderStyle="None">
                                 <ItemTemplate>
                                     <asp:TextBox CssClass="form-control form-control-sm" ReadOnly="false" Width="100%" ID="Login" Text='<%#Eval("Login")%>' runat="server"></asp:TextBox>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Последний вход" SortExpression="Role" HeaderStyle-Width="30%" ControlStyle-BackColor="Transparent" ControlStyle-BorderStyle="None">
+                            <asp:TemplateField HeaderText="Последний вход" SortExpression="Role" ControlStyle-BackColor="DarkGray" ControlStyle-BorderStyle="None">
                                 <ItemTemplate>
-                                    <asp:Label CssClass="form-control form-control-sm" Width="100%" ID="LastTimeEnter" style="text-align:center" Text='<%#Eval("LastTimeEnter")%>' runat="server"></asp:Label>
+                                    <asp:Label CssClass="form-control form-control-sm" Width="100%" ID="LastTimeEnter" style="text-align:center;color:white" Text='<%#Eval("LastTimeEnter")%>' runat="server"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Уровень" SortExpression="Role" ControlStyle-BackColor="Transparent" ControlStyle-BorderStyle="None">
@@ -118,9 +122,10 @@
                             </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
-                    <div style="text-align:right;">
-                    <asp:Button runat="server" style="width:182px;margin-right:2px" CssClass="btn btn-outline-success" CausesValidation="false" Text="Сохранить изменения" ReadOnly="false" ID="SubmitChange" OnClick="SubmitChange_Click" />
+                        <div style="text-align:right;">
+                            <asp:Button runat="server" style="width:182px;margin-right:2px" CssClass="btn btn-outline-success" CausesValidation="false" Text="Сохранить изменения" ReadOnly="false" ID="SubmitChange" OnClick="SubmitChange_Click" />
                         </div>
+                    </div>
                 </div>
                 <div style="text-align:center;margin:auto;max-width:800px">
                     <div style="text-align:center;border-bottom: 1px solid gray"> 

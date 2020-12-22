@@ -713,7 +713,7 @@ html, body {
     border: 1px solid rgba(72, 70, 70, 0.41);
 }
 .DebtorsGridView a {
-    color: deeppink;
+    color: gray;
 }
 /*.DebtorsGridView img {
     background-image: url('/images/money.png');
@@ -737,7 +737,20 @@ html, body {
     background-color: #00ff000f;
 }
     .debtorspaid a {
-        color: #ffed14;
+        color: forestgreen;
+    }
+.debtors-is-not-account {
+    background-color: transparent;
+}
+    .debtors-is-not-account a {
+        color: darkgray;
+    }
+.debtors-is-not-done-paid {
+    background-color: transparent;
+}
+
+    .debtors-is-not-done-paid a {
+        color: orangered;
     }
 .debtornot {
     background-color: gray;
@@ -783,10 +796,12 @@ html, body {
     max-height: 70vh;
     overflow-y: auto;
 }
-.panel-button-controls-debtors a{
-    margin:3px;
-    border:none;
-    border-bottom:1px solid red;
+.panel-button-controls-debtors a {
+    margin: 3px;
+    border: none;
+    border-bottom: 1px solid red;
+    background-color: #cd5c5c5c;
+    color: white;
 }
 .panel-button-controls-debtors a:hover {
     background-color:transparent;
