@@ -136,7 +136,22 @@
                             </asp:TemplateField>
                             <asp:BoundField ControlStyle-CssClass="form-control form-control-sm" HeaderText="Должность" DataField="Position" runat="server"></asp:BoundField>
                             <asp:BoundField ControlStyle-CssClass="form-control form-control-sm" HeaderText="Телефон" DataField="Phone" runat="server"></asp:BoundField>
-                            <asp:BoundField ControlStyle-CssClass="form-control form-control-sm" HeaderText="Дата рождения" DataField="BirthDate" runat="server"></asp:BoundField>
+                            <%--<asp:BoundField ControlStyle-CssClass="form-control form-control-sm" HeaderText="Дата рождения" DataField="BirthDate" runat="server" />--%>
+                             <asp:TemplateField HeaderText="Дата рождения">
+                                <EditItemTemplate>
+                                    <asp:Label runat="server" Font-Size="8" ForeColor="LightGray">
+                                        <p>
+                                            Формат даты: ДД.ММ.ГГГГ<br />
+                                            Например: 01.01.1990
+                                        </p>
+                                    </asp:Label>
+                                    <asp:TextBox ID="BirthDateTextBox" Text='<%# Eval("BirthDate") %>' runat="server" CssClass="form-control form-control-sm"/>
+                                </EditItemTemplate>
+                                <ItemTemplate>
+                                    <asp:Label ID="BirthDateLabel"
+                                        Text='<%# ConvertDateTimeToShort(Eval("BirthDate")) %>' runat="server"/>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <%--<asp:BoundField ControlStyle-CssClass="form-control form-control-sm" HeaderText="Отпуска" DataField="Rest" runat="server"></asp:BoundField>--%>
                             <asp:TemplateField HeaderText="Отпуска">
                                 <EditItemTemplate>

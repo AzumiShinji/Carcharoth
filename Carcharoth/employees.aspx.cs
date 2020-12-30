@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -158,7 +159,22 @@ namespace Carcharoth
             var selected = DirectionTxt.Items.Cast<ListItem>().Where(x => x.Selected).ToList();
             TextBox PositionTxt = (TextBox)row.Cells[5].Controls[0];
             TextBox PhoneTxt = (TextBox)row.Cells[6].Controls[0];
-            TextBox BirthDateTxt = (TextBox)row.Cells[7].Controls[0];
+            //TextBox BirthDateTxt = (TextBox)row.Cells[7].Controls[0];
+            var BirthDateTextBox = row.FindControl("BirthDateTextBox") as TextBox;
+            string dt = "";
+            if (!String.IsNullOrEmpty(BirthDateTextBox.Text))
+            {
+                var _dt = DateTime.TryParseExact(BirthDateTextBox.Text, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime result);
+                if(_dt)
+                {
+                    dt = result.ToString("dd.MM.yyyy");
+                }
+                else
+                {
+                    StatusLabel.Text = "Формат даты неверен, должен быть в виде: ДД.ММ.ГГГГ (01.01.1992), попытка изменения: " + EmailTxt.Text;
+                    return;
+                }
+            }
             var VacationsTextBox = row.FindControl("VacationsTextBox") as TextBox;
             string vacations = "";
             if(!String.IsNullOrEmpty(VacationsTextBox.Text))
@@ -166,7 +182,7 @@ namespace Carcharoth
             //TextBox RestTxt = (TextBox)row.Cells[8].Controls[0];
             EmployeesGrid.EditIndex = -1;
             conn.Open();
-            SqlCommand cmd = new SqlCommand("UPDATE [Users] SET Code=N'"+CodeTxt.Text+ "',FIO=N'" + FIOTxt.Text + "',Email=N'" + EmailTxt.Text + "',Direction=N'" + String.Join("/", selected) + "',Position=N'" + PositionTxt.Text + "',Phone=N'" + PhoneTxt.Text + "',BirthDate=N'" + BirthDateTxt.Text + "',Rest=N'" + vacations + "' WHERE ID = '" + userid + "'", conn);
+            SqlCommand cmd = new SqlCommand("UPDATE [Users] SET Code=N'"+CodeTxt.Text+ "',FIO=N'" + FIOTxt.Text + "',Email=N'" + EmailTxt.Text + "',Direction=N'" + String.Join("/", selected) + "',Position=N'" + PositionTxt.Text + "',Phone=N'" + PhoneTxt.Text + "',BirthDate=N'" + dt + "',Rest=N'" + vacations + "' WHERE ID = '" + userid + "'", conn);
             cmd.ExecuteNonQuery();
             conn.Close();
             GetData();
@@ -191,6 +207,20 @@ namespace Carcharoth
                 StatusLabel.Text = InsertEmail.Text + " - не соответствует правилам ('example@fsfk.local') и не может быть пустым!";
                 return;
             }
+            string dt = "";
+            if (!String.IsNullOrEmpty(InsertBirthDate.Text))
+            {
+                var _dt = DateTime.TryParseExact(InsertBirthDate.Text, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime result);
+                if (_dt)
+                {
+                    dt = result.ToString("dd.MM.yyyy");
+                }
+                else
+                {
+                    StatusLabel.Text = "Формат даты неверен, должен быть в виде: ДД.ММ.ГГГГ (01.01.1992)";
+                    return;
+                }
+            }
             try
             {
                 SqlConnection con = new SqlConnection();
@@ -214,7 +244,7 @@ namespace Carcharoth
                             sqlCommand.Parameters.AddWithValue("@Direction", String.Join("/",selected) ?? "");
                             sqlCommand.Parameters.AddWithValue("@Position", InsertPosition.Text ?? "");
                             sqlCommand.Parameters.AddWithValue("@Phone", InsertPhone.Text ?? "");
-                            sqlCommand.Parameters.AddWithValue("@BirthDate", InsertBirthDate.Text ?? "");
+                            sqlCommand.Parameters.AddWithValue("@BirthDate", dt);
                             sqlCommand.ExecuteNonQuery();
                             GetData();
                             StatusLabel.Text=InsertEmail.Text + " - добавлен!";
@@ -326,6 +356,20 @@ namespace Carcharoth
             public DateTime? BirthDate { get; set; }
             public DateTime? CompareDayMonth { get; set; }
             public string FIO { get; set; }
+        }
+
+        public string ConvertDateTimeToShort(object dt)
+        {
+            if (dt != null && dt != DBNull.Value)
+            {
+                var string_dt = (string)dt;
+                var _dt = DateTime.TryParseExact(string_dt, "dd.MM.yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime result);
+                if (_dt)
+                {
+                    return result.ToString("dd MMMM");
+                }
+            }
+            return "";
         }
         #endregion
 
@@ -454,9 +498,9 @@ namespace Carcharoth
                     e.Row.Cells[2].Text = "<div style='display:inline-block;'><div class='CustomToolTip' style='display:inline-block;'><span>День рождение!</span><img runat='server' src='/images/birthday.png'/></div>" +
                         "<div class='CustomToolTip' style='display:inline-block;'><span>В отпуске!</span><img runat='server' src='/images/user-rest.png'/></div></div> " + FIO;
                 #region Hidden Years of Employees
-                var isDate = DateTime.TryParse(birthday,out DateTime FinalDate);
-                if(isDate)
-                e.Row.Cells[7].Text = FinalDate.ToString("dd MMMM");
+                //var isDate = DateTime.TryParse(birthday,out DateTime FinalDate);
+                //if(isDate)
+                //e.Row.Cells[7].Text = FinalDate.ToString("dd MMMM");
                 #endregion
             }
         }

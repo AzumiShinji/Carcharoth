@@ -146,7 +146,7 @@ namespace Carcharoth
                         "SELECT * FROM ctr " + restext;
                 TextBoxSearchCCACCITSSQLS.Focus();
                 TextBoxSearchCCACCITSSQLS.Text = TextBoxSearchCCACCITSSQLS.Text;
-                infoaboutserver.AddHistory("CTR поиск: "+ TextBoxSearchCCACCITSSQLS.Text);
+               //infoaboutserver.AddHistory("CTR поиск: "+ TextBoxSearchCCACCITSSQLS.Text);
             }
             else { DataCCACCITSSQLSource.SelectCommand = "SELECT * FROM ctr"; infoaboutserver.AddHistory("CTR поиск: Весь список каталога "); }
         }
@@ -213,7 +213,7 @@ namespace Carcharoth
                         "SELECT TOP 100 * FROM ctr_tel " + restext + "ORDER BY ID DESC";
                 TextBoxSearchCCACCITSSQLS.Focus();
                 TextBoxSearchCCACCITSSQLS.Text = TextBoxSearchCCACCITSSQLS.Text;
-                infoaboutserver.AddHistory("CTR поиск: " + TextBoxSearchCCACCITSSQLS.Text);
+               // infoaboutserver.AddHistory("CTR поиск: " + TextBoxSearchCCACCITSSQLS.Text);
             }
         }
     }
