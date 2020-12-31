@@ -4,11 +4,39 @@
     <asp:UpdateProgress runat="server" DisplayAfter="0">
         <ProgressTemplate>
             <div class="preloader" id="cover">
-               <div class="preloader-padding">
-                    <div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-                    <br />
-                    Пожалуйста, подождите...
+                <div class="preloader-padding">
+                    <div class="book">
+                      <div class="inner">
+                        <div class="left"></div>
+                        <div class="middle"></div>
+                        <div class="right"></div>
+                      </div>
+                      <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                      </ul>
+                    </div>
                 </div>
+                <br />
+                <p style="font-size:24px">
+                   Поиск организаций...
+                </p>
             </div>
         </ProgressTemplate>
     </asp:UpdateProgress>

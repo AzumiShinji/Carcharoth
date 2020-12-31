@@ -75,6 +75,7 @@
     <Content Include="css\knt9.css" />
     <Content Include="css\creative.css" />
     <Content Include="css\loader.css" />
+    <Content Include="css\loader_book.css" />
     <Content Include="css\sessionout.css" />
     <Content Include="css\slidetext.css" />
     <Content Include="games.aspx" />

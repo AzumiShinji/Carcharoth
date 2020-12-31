@@ -13,6 +13,7 @@
         <link rel="stylesheet" runat="server" media="screen" href="css/creative.css" />
         <link rel="stylesheet" runat="server" media="screen" href="css/slidetext.css" />
         <link rel="stylesheet" runat="server" media="screen" href="css/loader.css" />
+        <link rel="stylesheet" runat="server" media="screen" href="css/loader_book.css" />
         <link href="css/SantasReindeer.css" rel="stylesheet" runat="server" media="screen"  />
         <link rel="icon" href="favicon.ico" type="image/x-icon"/>
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
