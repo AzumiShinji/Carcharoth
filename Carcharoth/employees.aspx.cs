@@ -81,7 +81,18 @@ namespace Carcharoth
                 if (!String.IsNullOrEmpty(sort))
                 {
                     dv.Sort = sort;
-                    EmployeesGrid.DataSource = dv;
+                    var direction = dv.Sort.Split(' ').Last();
+                    if (sort.StartsWith("BirthDate"))
+                    {
+                        cmd = new SqlCommand("Select * from users WHERE BirthDate IS NOT NULL AND DATALENGTH(BirthDate) > 0 ORDER BY MONTH(PARSE(BirthDate as date USING 'RU-ru')) " 
+                            + direction + ",DAY(PARSE(BirthDate as date USING 'RU-ru')) " + direction, conn);
+                        da = new SqlDataAdapter(cmd);
+                        ds = new DataSet();
+                        da.Fill(ds);
+                        EmployeesGrid.DataSource = ds;
+                    }
+                    else
+                        EmployeesGrid.DataSource = dv;
                 }
                 else
                     EmployeesGrid.DataSource = ds;
@@ -135,23 +146,27 @@ namespace Carcharoth
 
         private void SortGridView(string sortExpression, string direction)
         {
-            //  You can cache the DataTable for improving performance
-            //conn.Open();
-            //SqlCommand cmd = new SqlCommand("Select * from users", conn);
-            //SqlDataAdapter da = new SqlDataAdapter(cmd);
-            //DataSet ds = new DataSet();
-            //da.Fill(ds);
-            //conn.Close();
-
-
-            //DataTable dt = new DataTable(da,);
-
             DataSet ds = Session["EmployeesGridView"] as DataSet;
-            DataView dv = new DataView(ds.Tables[0]);
-            dv.Sort = sortExpression + direction;
-            Session["SelectedSort"] = dv.Sort;
-            EmployeesGrid.DataSource = dv;
-            EmployeesGrid.DataBind();
+            if (ds != null)
+            {
+                DataView dv = new DataView(ds.Tables[0]);
+                dv.Sort = sortExpression + direction;
+                if (dv.Sort.StartsWith("BirthDate"))
+                {
+                    var cmd = new SqlCommand("Select * from users WHERE BirthDate IS NOT NULL AND DATALENGTH(BirthDate) > 0 ORDER BY MONTH(PARSE(BirthDate as date USING 'RU-ru')) "
+                        + direction + ",DAY(PARSE(BirthDate as date USING 'RU-ru')) " + direction, conn);
+                    var da = new SqlDataAdapter(cmd);
+                    var _ds = new DataSet();
+                    da.Fill(_ds);
+                    EmployeesGrid.DataSource = _ds;
+                }
+                else
+                {
+                    EmployeesGrid.DataSource = dv;
+                }
+                Session["SelectedSort"] = dv.Sort;
+                EmployeesGrid.DataBind();
+            }
         }
         //protected void EmployeesGrid_RowDeleting(object sender, GridViewDeleteEventArgs e)
         //{
