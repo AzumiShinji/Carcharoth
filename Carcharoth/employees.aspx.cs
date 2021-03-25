@@ -27,7 +27,7 @@ namespace Carcharoth
                 {
                     if (!IsPostBack)
                     {
-                        GetData();
+                        GetData_();
                     }
                     EmployeesGrid.Columns[EmployeesGrid.Columns.Count - 1].Visible = false;
                     EmployeesGrid.Columns[EmployeesGrid.Columns.Count - 2].Visible = true;
@@ -42,7 +42,7 @@ namespace Carcharoth
                 {
                     if (!IsPostBack)
                     {
-                        GetData();
+                        GetData_();
                     }
                     EmployeesGrid.Columns[EmployeesGrid.Columns.Count - 1].Visible = false;
                     EmployeesGrid.Columns[EmployeesGrid.Columns.Count - 2].Visible = false;
@@ -55,7 +55,7 @@ namespace Carcharoth
             {
                 if (!IsPostBack)
                 {
-                    GetData();
+                    GetData_();
                 }
                 EmployeesGrid.Columns[EmployeesGrid.Columns.Count - 1].Visible = false;
                 EmployeesGrid.Columns[EmployeesGrid.Columns.Count - 2].Visible = false;
@@ -64,17 +64,27 @@ namespace Carcharoth
             }
         }
 
-        protected void GetData()
+        protected void GetData_()
         {
             conn.Open();
             SqlCommand cmd = new SqlCommand("Select * from users ORDER BY Case WHEN Direction = N'Не определено' THEN NULL ELSE Direction END DESC, ID ASC", conn);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             da.Fill(ds);
+            Session["EmployeesGridView"] = ds;
             conn.Close();
+
             if (ds.Tables[0].Rows.Count > 0)
             {
-                EmployeesGrid.DataSource = ds;
+                DataView dv = new DataView(ds.Tables[0]);
+                var sort = Session["SelectedSort"] as string;
+                if (!String.IsNullOrEmpty(sort))
+                {
+                    dv.Sort = sort;
+                    EmployeesGrid.DataSource = dv;
+                }
+                else
+                    EmployeesGrid.DataSource = ds;
                 EmployeesGrid.DataBind();
             }
             else
@@ -91,32 +101,84 @@ namespace Carcharoth
             GetListForBirthDate(ds);
         }
 
+        private const string ASCENDING = " ASC";
+        private const string DESCENDING = " DESC";
+
+        public SortDirection GridViewSortDirection
+        {
+            get
+            {
+                if (ViewState["sortDirection"] == null)
+                    ViewState["sortDirection"] = SortDirection.Ascending;
+
+                return (SortDirection)ViewState["sortDirection"];
+            }
+            set { ViewState["sortDirection"] = value; }
+        }
+
+        protected void GridView_Sorting(object sender, GridViewSortEventArgs e)
+        {
+            string sortExpression = e.SortExpression;
+
+            if (GridViewSortDirection == SortDirection.Ascending)
+            {
+                GridViewSortDirection = SortDirection.Descending;
+                SortGridView(sortExpression, DESCENDING);
+            }
+            else
+            {
+                GridViewSortDirection = SortDirection.Ascending;
+                SortGridView(sortExpression, ASCENDING);
+            }
+
+        }
+
+        private void SortGridView(string sortExpression, string direction)
+        {
+            //  You can cache the DataTable for improving performance
+            //conn.Open();
+            //SqlCommand cmd = new SqlCommand("Select * from users", conn);
+            //SqlDataAdapter da = new SqlDataAdapter(cmd);
+            //DataSet ds = new DataSet();
+            //da.Fill(ds);
+            //conn.Close();
+
+
+            //DataTable dt = new DataTable(da,);
+
+            DataSet ds = Session["EmployeesGridView"] as DataSet;
+            DataView dv = new DataView(ds.Tables[0]);
+            dv.Sort = sortExpression + direction;
+            Session["SelectedSort"] = dv.Sort;
+            EmployeesGrid.DataSource = dv;
+            EmployeesGrid.DataBind();
+        }
         //protected void EmployeesGrid_RowDeleting(object sender, GridViewDeleteEventArgs e)
         //{
-            //GridViewRow row = (GridViewRow)EmployeesGrid.Rows[e.RowIndex];
-            //var id = EmployeesGrid.Rows[e.RowIndex].DataItemIndex;
-            //string Email = "";
-            //using (SqlConnection sqlConnection = new SqlConnection(index.CM))
-            //using (SqlCommand sqlCommand = new SqlCommand("SELECT * from Users Where ID=@ID", sqlConnection))
-            //{
-            //    sqlCommand.Parameters.AddWithValue("@ID", Convert.ToInt32(EmployeesGrid.DataKeys[e.RowIndex].Value.ToString()));
-            //    sqlConnection.Open();
-            //    using (SqlDataReader reader = sqlCommand.ExecuteReader())
-            //    {
-            //        while (reader.Read())
-            //        {
-            //            Email = (string)reader["Email"];
-            //        }
-            //    }
-            //    sqlConnection.Close();
-            //}
-            //conn.Open();
-            //SqlCommand cmd = new SqlCommand("delete FROM users where ID='" + Convert.ToInt32(EmployeesGrid.DataKeys[e.RowIndex].Value.ToString()) + "'", conn);
-            //cmd.ExecuteNonQuery();
-            //conn.Close();
-            //GetData();
-            //StatusLabel.Text = Email+" - удален";
-            //infoaboutserver.AddHistory("Удален сотрудник - " + Email);
+        //GridViewRow row = (GridViewRow)EmployeesGrid.Rows[e.RowIndex];
+        //var id = EmployeesGrid.Rows[e.RowIndex].DataItemIndex;
+        //string Email = "";
+        //using (SqlConnection sqlConnection = new SqlConnection(index.CM))
+        //using (SqlCommand sqlCommand = new SqlCommand("SELECT * from Users Where ID=@ID", sqlConnection))
+        //{
+        //    sqlCommand.Parameters.AddWithValue("@ID", Convert.ToInt32(EmployeesGrid.DataKeys[e.RowIndex].Value.ToString()));
+        //    sqlConnection.Open();
+        //    using (SqlDataReader reader = sqlCommand.ExecuteReader())
+        //    {
+        //        while (reader.Read())
+        //        {
+        //            Email = (string)reader["Email"];
+        //        }
+        //    }
+        //    sqlConnection.Close();
+        //}
+        //conn.Open();
+        //SqlCommand cmd = new SqlCommand("delete FROM users where ID='" + Convert.ToInt32(EmployeesGrid.DataKeys[e.RowIndex].Value.ToString()) + "'", conn);
+        //cmd.ExecuteNonQuery();
+        //conn.Close();
+        //GetData();
+        //StatusLabel.Text = Email+" - удален";
+        //infoaboutserver.AddHistory("Удален сотрудник - " + Email);
         //}
 
         protected void EmployeesGrid_RowEditing(object sender, GridViewEditEventArgs e)
@@ -128,7 +190,7 @@ namespace Carcharoth
             Label lbDisplayName = (Label)EmployeesGrid.Rows[e.NewEditIndex].FindControl("Label_Direction");
             string name = lbDisplayName.Text;
 
-            GetData();
+            GetData_();
 
             GridViewRow gvr = EmployeesGrid.Rows[e.NewEditIndex];
             var dr = (ListBox)gvr.FindControl("Direction");
@@ -185,19 +247,19 @@ namespace Carcharoth
             SqlCommand cmd = new SqlCommand("UPDATE [Users] SET Code=N'"+CodeTxt.Text+ "',FIO=N'" + FIOTxt.Text + "',Email=N'" + EmailTxt.Text + "',Direction=N'" + String.Join("/", selected) + "',Position=N'" + PositionTxt.Text + "',Phone=N'" + PhoneTxt.Text + "',BirthDate=N'" + dt + "',Rest=N'" + vacations + "' WHERE ID = '" + userid + "'", conn);
             cmd.ExecuteNonQuery();
             conn.Close();
-            GetData();
+            GetData_();
             StatusLabel.Text = "Информация о сотруднике обновлена - " + EmailTxt.Text;
             infoaboutserver.AddHistory("Информация о сотруднике обновлена - "+ EmailTxt.Text);
         }
         protected void EmployeesGrid_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             EmployeesGrid.PageIndex = e.NewPageIndex;
-            GetData();
+            GetData_();
         }
         protected void EmployeesGrid_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             EmployeesGrid.EditIndex = -1;
-            GetData();
+            GetData_();
         }
 
         protected void AddNewEmployees_Click(object sender, EventArgs e)
@@ -246,7 +308,7 @@ namespace Carcharoth
                             sqlCommand.Parameters.AddWithValue("@Phone", InsertPhone.Text ?? "");
                             sqlCommand.Parameters.AddWithValue("@BirthDate", dt);
                             sqlCommand.ExecuteNonQuery();
-                            GetData();
+                            GetData_();
                             StatusLabel.Text=InsertEmail.Text + " - добавлен!";
                         }
                     }
@@ -564,7 +626,7 @@ namespace Carcharoth
                         SqlCommand cmd = new SqlCommand("delete FROM users where ID='" + Convert.ToInt32(EmployeesGrid.DataKeys[row_index].Value.ToString()) + "'", conn);
                         cmd.ExecuteNonQuery();
                         conn.Close();
-                        GetData();
+                        GetData_();
                         StatusLabel.Text = Email + " - удален";
                         infoaboutserver.AddHistory("Удален сотрудник - " + Email);
                         break;

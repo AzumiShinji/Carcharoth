@@ -93,16 +93,16 @@
                     </asp:Panel>
                     <%--OnRowDeleting="EmployeesGrid_RowDeleting" --%>
                     <asp:GridView ID="EmployeesGrid" Width="100%" RowStyle-CssClass="border-dark" HeaderStyle-CssClass="table-bordered" RowStyle-HorizontalAlign="Center"
-                        runat="server" AllowSorting="false" DataKeyNames="ID" AutoGenerateColumns="false" CssClass="GridListEmployees gridview-selected-row-style"
-                        BorderColor="Transparent" HeaderStyle-HorizontalAlign="Center"
+                        runat="server" AllowSorting="true" DataKeyNames="ID" AutoGenerateColumns="false" CssClass="GridListEmployees gridview-selected-row-style"
+                        BorderColor="Transparent" HeaderStyle-HorizontalAlign="Center" OnSorting="GridView_Sorting" EnableSortingAndPagingCallbacks="true"
                         OnRowEditing="EmployeesGrid_RowEditing" OnRowUpdating="EmployeesGrid_RowUpdating"
-                        OnRowCommand="EmployeesGrid_RowCommand" 
+                        OnRowCommand="EmployeesGrid_RowCommand" EnableViewState="true"
                         OnPageIndexChanging="EmployeesGrid_PageIndexChanging" OnRowCancelingEdit="EmployeesGrid_RowCancelingEdit" OnRowDataBound="EmployeesGrid_RowDataBound">
                         <Columns>
-                            <asp:BoundField DataField="ID" ItemStyle-HorizontalAlign="Center" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="Id" />
+                            <asp:BoundField DataField="ID" ItemStyle-HorizontalAlign="Center" HeaderText="ID" InsertVisible="False" ReadOnly="True" SortExpression="Id"  />
                             <asp:BoundField ControlStyle-CssClass="form-control form-control-sm" ControlStyle-Width="60px" HeaderText="Код" DataField="Code" runat="server" SortExpression="Code"></asp:BoundField>
-                            <asp:BoundField ControlStyle-CssClass="form-control form-control-sm" HeaderText="ФИО" DataField="FIO" runat="server"></asp:BoundField>
-                            <asp:BoundField ControlStyle-CssClass="form-control form-control-sm" HeaderText="Email" DataField="Email" runat="server"></asp:BoundField>
+                            <asp:BoundField ControlStyle-CssClass="form-control form-control-sm" HeaderText="ФИО" DataField="FIO" runat="server" SortExpression="FIO"></asp:BoundField>
+                            <asp:BoundField ControlStyle-CssClass="form-control form-control-sm" HeaderText="Email" DataField="Email" runat="server" SortExpression="Email"></asp:BoundField>
                             <asp:TemplateField HeaderText="Направление" SortExpression="Direction">
                                 <EditItemTemplate>
                                     <asp:Label runat="server">Зажмите Ctrl для выбора</asp:Label>
@@ -134,10 +134,10 @@
                                     </div>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:BoundField ControlStyle-CssClass="form-control form-control-sm" HeaderText="Должность" DataField="Position" runat="server"></asp:BoundField>
-                            <asp:BoundField ControlStyle-CssClass="form-control form-control-sm" HeaderText="Телефон" DataField="Phone" runat="server"></asp:BoundField>
+                            <asp:BoundField ControlStyle-CssClass="form-control form-control-sm" HeaderText="Должность" DataField="Position" runat="server" SortExpression="Position"></asp:BoundField>
+                            <asp:BoundField ControlStyle-CssClass="form-control form-control-sm" HeaderText="Телефон" DataField="Phone" runat="server" SortExpression="Phone"></asp:BoundField>
                             <%--<asp:BoundField ControlStyle-CssClass="form-control form-control-sm" HeaderText="Дата рождения" DataField="BirthDate" runat="server" />--%>
-                             <asp:TemplateField HeaderText="Дата рождения">
+                             <asp:TemplateField HeaderText="Дата рождения" SortExpression="BirthDate">
                                 <EditItemTemplate>
                                     <asp:Label runat="server" Font-Size="8" ForeColor="LightGray">
                                         <p>
@@ -153,7 +153,7 @@
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <%--<asp:BoundField ControlStyle-CssClass="form-control form-control-sm" HeaderText="Отпуска" DataField="Rest" runat="server"></asp:BoundField>--%>
-                            <asp:TemplateField HeaderText="Отпуска">
+                            <asp:TemplateField HeaderText="Отпуска" SortExpression="Rest">
                                 <EditItemTemplate>
                                     <asp:Label runat="server" Font-Size="8" ForeColor="LightGray">
                                         <p>
