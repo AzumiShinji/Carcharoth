@@ -120,6 +120,8 @@
                                                              <br />
                                                             Управление делами: <div style="float:right;"><%# Eval("ProjectUD") %></div>
                                                              <br />
+                                                            ПОИБ СОБИ: <div style"float:right;"><%# Eval("ProjectPOIB") %></div>
+                                                             <br />
                                                             Сменщики: <div style="float:right;"><%#(int)Eval("ProjectShift") %></div>
                                                             <br />
                                                             Универсалы: <div style="float:right;"><%#(int)Eval("ProjectUnivers") %></div>
@@ -139,6 +141,7 @@
                                                                                               (int)Eval("ProjectKS")+
                                                                                               (int)Eval("ProjectUC")+
                                                                                               (int)Eval("ProjectUD")+
+                                                                                              (int)Eval("ProjectPOIB")+
                                                                                               (int)Eval("ProjectShift")+
                                                                                               (int)Eval("ProjectUnivers")+
                                                                                               (int)Eval("ProjectUnchange") 
@@ -168,6 +171,8 @@
                                                             <br />
                                                             Управление делами: <div style="float:right;"><%# Math.Round((double)(int)Eval("ProjectUD")/((int)Eval("AllIM")+(int)Eval("AllResolved")+(int)Eval("AllTResolved"))*100,2) %>%</div>
                                                             <br />
+                                                            ПОИБ СОБИ: <div style="float:right;"><%# Math.Round((double)(int)Eval("ProjectPOIB")/((int)Eval("AllIM")+(int)Eval("AllResolved")+(int)Eval("AllTResolved"))*100,2) %>%</div>
+                                                            <br />
                                                             Сменщики: <div style="float:right;"><%# Math.Round((double)(int)Eval("ProjectShift")/((int)Eval("AllIM")+(int)Eval("AllResolved")+(int)Eval("AllTResolved"))*100,2) %>%</div>
                                                             <br />
                                                             Универсалы: <div style="float:right;"><%# Math.Round((double)(int)Eval("ProjectUnivers")/((int)Eval("AllIM")+(int)Eval("AllResolved")+(int)Eval("AllTResolved"))*100,2) %>%</div>
@@ -188,6 +193,7 @@
                                                                                               (int)Eval("ProjectKS")+
                                                                                               (int)Eval("ProjectUC")+
                                                                                               (int)Eval("ProjectUD")+
+                                                                                              (int)Eval("ProjectPOIB")+
                                                                                               (int)Eval("ProjectShift")+
                                                                                               (int)Eval("ProjectUnivers")+
                                                                                               (int)Eval("ProjectUnchange") 

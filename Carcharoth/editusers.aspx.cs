@@ -31,6 +31,7 @@ namespace Carcharoth
             public int ProjectMI { get; set; }
             public int ProjectUC { get; set; }
             public int ProjectUD { get; set; }
+            public int ProjectPOIB { get; set; }
             public int ProjectDebtors { get; set; }
         }
         protected void Page_Load(object sender, EventArgs e)
@@ -82,6 +83,7 @@ namespace Carcharoth
                             ProjectMI = (object)reader["ProjectMI"] == DBNull.Value ? 0 : (int)reader["ProjectMI"],
                             ProjectUC = (object)reader["ProjectUC"] == DBNull.Value ? 0 : (int)reader["ProjectUC"],
                             ProjectUD = (object)reader["ProjectUD"] == DBNull.Value ? 0 : (int)reader["ProjectUD"],
+                            ProjectPOIB = (object)reader["ProjectPOIB"] == DBNull.Value ? 0 : (int)reader["ProjectPOIB"],
                             ProjectDebtors = (object)reader["ProjectDebtors"] == DBNull.Value ? 0 : (int)reader["ProjectDebtors"],
                             LastTimeEnter = (object)reader["LastTimeEnter"] == DBNull.Value ? "Никогда" : (string)reader["LastTimeEnter"],
                         });
@@ -147,7 +149,7 @@ namespace Carcharoth
                         int Level = 0, ProjectAll = 0,
                         ProjectDSFK = 0, ProjectEB = 0, ProjectGASU = 0, ProjectGISGMP = 0
                         , ProjectGISGMU = 0, ProjectSUFD = 0, ProjectOneC = 0, ProjectKS = 0, 
-                        ProjectMI = 0, ProjectUC = 0, ProjectUD = 0, ProjectDebtors=0;
+                        ProjectMI = 0, ProjectUC = 0, ProjectUD = 0, ProjectPOIB = 0, ProjectDebtors=0;
 
                         int Id = Convert.ToInt32(UsersGrid.Rows[row.RowIndex].Cells[0].Text);
 
@@ -214,12 +216,16 @@ namespace Carcharoth
                         if (_ProjectUD.Checked) ProjectUD = 1;
                         else ProjectUD = 0;
 
+                        CheckBox _ProjectPOIB = (CheckBox)row.FindControl("ProjectPOIB");
+                        if (_ProjectPOIB.Checked) ProjectPOIB = 1;
+                        else ProjectPOIB = 0;
+
                         CheckBox _ProjectDebtors = (CheckBox)row.FindControl("ProjectDebtors");
                         if (_ProjectDebtors.Checked) ProjectDebtors = 1;
                         else ProjectDebtors = 0;
 
                         if (Id != 1)
-                        using (SqlCommand sqlCommand = new SqlCommand("UPDATE UsersCarcharoth SET FIO=@FIO, Login=@Login, Level=@Level, ProjectAll=@ProjectAll, ProjectDSFK=@ProjectDSFK, ProjectEB=@ProjectEB, ProjectGASU=@ProjectGASU, ProjectGISGMP=@ProjectGISGMP, ProjectGISGMU=@ProjectGISGMU, ProjectSUFD=@ProjectSUFD, ProjectOneC=@ProjectOneC, ProjectKS=@ProjectKS, ProjectMI=@ProjectMI, ProjectUC=@ProjectUC, ProjectUD=@ProjectUD, ProjectDebtors=@ProjectDebtors WHERE Id=@Id", sqlConnection))
+                        using (SqlCommand sqlCommand = new SqlCommand("UPDATE UsersCarcharoth SET FIO=@FIO, Login=@Login, Level=@Level, ProjectAll=@ProjectAll, ProjectDSFK=@ProjectDSFK, ProjectEB=@ProjectEB, ProjectGASU=@ProjectGASU, ProjectGISGMP=@ProjectGISGMP, ProjectGISGMU=@ProjectGISGMU, ProjectSUFD=@ProjectSUFD, ProjectOneC=@ProjectOneC, ProjectKS=@ProjectKS, ProjectMI=@ProjectMI, ProjectUC=@ProjectUC, ProjectUD=@ProjectUD, ProjectPOIB=@ProjectPOIB, ProjectDebtors=@ProjectDebtors WHERE Id=@Id", sqlConnection))
                         {
                             sqlConnection.Open();
                             sqlCommand.Parameters.AddWithValue("@FIO", FIO);
@@ -237,6 +243,7 @@ namespace Carcharoth
                             sqlCommand.Parameters.AddWithValue("@ProjectMI", ProjectMI);
                             sqlCommand.Parameters.AddWithValue("@ProjectUC", ProjectUC);
                             sqlCommand.Parameters.AddWithValue("@ProjectUD", ProjectUD);
+                            sqlCommand.Parameters.AddWithValue("@ProjectPOIB", ProjectPOIB);
                             sqlCommand.Parameters.AddWithValue("@ProjectDebtors", ProjectDebtors);
                             sqlCommand.Parameters.AddWithValue("@Id", Id);
                             sqlCommand.ExecuteNonQuery();

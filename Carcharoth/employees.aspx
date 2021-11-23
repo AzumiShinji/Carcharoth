@@ -49,6 +49,7 @@
                                 <asp:ListItem Text="КС" Value="КС" />
                                 <asp:ListItem Text="УЦ" Value="УЦ" />
                                 <asp:ListItem Text="Управление делами" Value="Управление делами" />
+                                <asp:ListItem Text="ПОИБ СОБИ" Value="ПОИБ СОБИ" />
                                 <asp:ListItem Text="Сменщики" Value="Сменщики" />
                                 <asp:ListItem Text="Универсалы" Value="Универсалы" />
                             </asp:ListBox>
@@ -118,6 +119,7 @@
                                     <asp:ListItem Text="КС" Value="КС" />
                                     <asp:ListItem Text="УЦ" Value="УЦ" />
                                     <asp:ListItem Text="Управление делами" Value="Управление делами" />
+                                    <asp:ListItem Text="ПОИБ СОБИ" Value="ПОИБ СОБИ" />
                                     <asp:ListItem Text="Сменщики" Value="Сменщики" />
                                     <asp:ListItem Text="Универсалы" Value="Универсалы" />
                                 </asp:ListBox>

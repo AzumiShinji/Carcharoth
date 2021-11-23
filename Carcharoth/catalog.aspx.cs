@@ -452,6 +452,12 @@ namespace Carcharoth
                                         FIO = (string)reader["FIO"],
                                         Project = "Управление делами",
                                     });
+                                if ((int)reader["ProjectPOIB"] == 1)
+                                    ListKuratorProjectClass.Add(new KuratorProjectClass
+                                    {
+                                        FIO = (string)reader["FIO"],
+                                        Project = "ПОИБ СОБИ",
+                                    });
                             }
                     }
                     string kurators = "";

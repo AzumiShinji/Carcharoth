@@ -64,6 +64,7 @@
                                         <asp:TreeNode Text="СУФД" ImageUrl="/images/catalog-tree-sufd.png"/>
                                         <asp:TreeNode Text="Удостоверяющий центр" ImageUrl="/images/catalog-tree-fzs.png"/>
                                         <asp:TreeNode Text="Управление делами" ImageUrl="/images/catalog-tree-ud.png"/>
+                                        <asp:TreeNode Text="ПОИБ СОБИ" ImageUrl="/images/catalog-tree-poib.png" />
                                     </asp:TreeNode>
 	                                <asp:TreeNode Text="Справочная информация" SelectAction="Expand" Expanded="false" ImageUrl="/images/catalog-tree-reference.png">
 	                                    <asp:TreeNode Text="ДС ФК" ImageUrl="/images/catalog-tree-dsfk.png" />
@@ -95,6 +96,7 @@
                                         <asp:TreeNode Text="СУФД" ImageUrl="/images/catalog-tree-sufd.png"/>
                                         <asp:TreeNode Text="Удостоверяющий центр" ImageUrl="/images/catalog-tree-fzs.png"/>
                                         <asp:TreeNode Text="Управление делами" ImageUrl="/images/catalog-tree-ud.png"/>
+                                        <asp:TreeNode Text="ПОИБ СОБИ" ImageUrl="/images/catalog-tree-poib.png" />
                                         <asp:TreeNode Text="Менеджер инцидентов" ImageUrl="/images/catalog-tree-mi.png"/>
 	                                </asp:TreeNode>
 	                                <asp:TreeNode Text="Другие проекты" ImageUrl="/images/catalog-tree-others.png"/>

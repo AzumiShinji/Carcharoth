@@ -351,6 +351,11 @@ namespace Carcharoth
                                 });
                                 g.Add(new ProjectField
                                 {
+                                    Status = (int)reader["ProjectPOIB"],
+                                    Name = "ПОИБ СОБИ"
+                                });
+                                g.Add(new ProjectField
+                                {
                                     Status = reader["ProjectDebtors"]==DBNull.Value?0: (int)reader["ProjectDebtors"],
                                     Name = "Взносы"
                                 });

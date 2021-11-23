@@ -1367,6 +1367,7 @@
     <Content Include="images\catalog-tree-node.png" />
     <Content Include="images\catalog-tree-others.png" />
     <Content Include="images\catalog-tree-sufd.png" />
+    <Content Include="images\catalog-tree-poib.png" />
     <Content Include="images\copy-min.png" />
     <Content Include="images\covid_dr.gif" />
     <Content Include="images\ctr.png" />

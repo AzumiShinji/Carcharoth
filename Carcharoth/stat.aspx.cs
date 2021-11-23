@@ -44,6 +44,7 @@ namespace Carcharoth
                 ProjectKS = 0,
                 ProjectUC = 0,
                 ProjectUD=0,
+                ProjectPOIB=0,
                 ProjectShift = 0,
                 ProjectUnivers = 0,
                 ProjectUnchange = 0;
@@ -152,6 +153,8 @@ namespace Carcharoth
                     ProjectUC += (SDResolved + IMAll + TResolved) / count;
                 if (user.Direction.Contains("Управление делами"))
                     ProjectUD += (SDResolved + IMAll + TResolved) / count;
+                if (user.Direction.Contains("ПОИБ СОБИ"))
+                    ProjectPOIB += (SDResolved + IMAll + TResolved) / count;
                 if (user.Direction.Contains("Сменщики"))
                     ProjectShift += (SDResolved + IMAll + TResolved) / count;
                 if (user.Direction.Contains("Универсалы"))
@@ -187,6 +190,7 @@ namespace Carcharoth
                 ProjectUC= ProjectUC,
                 ProjectSUFD=ProjectSUFD,
                 ProjectUD = ProjectUD,
+                ProjectPOIB = ProjectPOIB,
                 ProjectShift =ProjectShift,
                 ProjectUnivers = ProjectUnivers,
                 ProjectUnchange =ProjectUnchange,

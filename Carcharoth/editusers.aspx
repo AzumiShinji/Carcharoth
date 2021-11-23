@@ -105,6 +105,11 @@
                                     <asp:CheckBox ID="ProjectUD" runat="server" CssClass="GridRowListUsers form-control form-control-sm" Checked='<%#(int)Eval("ProjectUD") == 1 ? true:false %>' />
                                 </ItemTemplate>
                             </asp:TemplateField>
+                            <asp:TemplateField HeaderText="ПОИБ" SortExpression="Role" ControlStyle-BackColor="Transparent" ControlStyle-BorderStyle="None">
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="ProjectPOIB" runat="server" CssClass="GridRowListUsers form-control form-control-sm" Checked='<%#(int)Eval("ProjectPOIB") == 1 ? true:false %>' />
+                                </ItemTemplate>
+                            </asp:TemplateField>
                             <asp:TemplateField HeaderText="Взносы" SortExpression="Role" ControlStyle-BackColor="Transparent" ControlStyle-BorderStyle="None">
                                 <ItemTemplate>
                                     <asp:CheckBox ID="ProjectDebtors" runat="server" CssClass="GridRowListUsers form-control form-control-sm" Checked='<%#(int)Eval("ProjectDebtors") == 1 ? true:false %>' />
