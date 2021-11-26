@@ -390,6 +390,7 @@ namespace Carcharoth
             public int ProjectKS { get; set; }
             public int ProjectUC { get; set; }
             public int ProjectUD { get; set; }
+            public int ProjectPOIB { get; set; }
             public int ProjectShift { get; set; }
             public int ProjectUnivers { get; set; }
             public int ProjectUnchange { get; set; }
